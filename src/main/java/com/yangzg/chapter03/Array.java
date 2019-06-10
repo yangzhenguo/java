@@ -13,6 +13,9 @@ public class Array {
         test1();
 
         test2();
+
+        Integer integer = null;
+        System.out.println(integer);
     }
 
     private static void test1() {
