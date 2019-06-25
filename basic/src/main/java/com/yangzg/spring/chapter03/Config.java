@@ -70,7 +70,7 @@ public class Config {
 
             DbConfig config = applicationContext.getBean(DbConfig.class);
             System.out.println(config);
-            // new BufferedReader(new InputStreamReader(config.getUrl().getInputStream())).lines().forEach(System.out::println);
+            // new BufferedReader(new InputStreamReader(com.yangzg.config.getUrl().getInputStream())).lines().forEach(System.out::println);
 
             SystemConfig systemConfig = applicationContext.getBean(SystemConfig.class);
 

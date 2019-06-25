@@ -45,6 +45,8 @@ public class DateTest {
         Integer.toString(23);
         new Integer(23).toString();
 
+        Integer i = 12;
 
+        int j = i;
     }
 }

@@ -24,3 +24,4 @@ hs_err_pid*
 /_book/
 /basic/target/
 /springmvc/target/
+/shiro/target/
