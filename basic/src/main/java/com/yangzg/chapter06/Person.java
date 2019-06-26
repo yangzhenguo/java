@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Sam on 2019/6/17.
  */
-public class Person {
+public class Person implements Comparable<Person> {
     private String name;
     private int age;
 
@@ -75,6 +75,11 @@ public class Person {
     public static void main(String[] args) {
         String json = new Person("sam young", 1).toJson();
         System.out.println(json);
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        return 0;
     }
 }
 
