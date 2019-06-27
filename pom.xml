@@ -12,6 +12,7 @@
         <module>basic</module>
         <module>springmvc</module>
         <module>shiro</module>
+        <module>web3</module>
     </modules>
 
     <properties>
