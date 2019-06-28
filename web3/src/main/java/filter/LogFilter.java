@@ -7,6 +7,8 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Properties;
 
 /**
  * Created by Sam on 2019/6/27.
