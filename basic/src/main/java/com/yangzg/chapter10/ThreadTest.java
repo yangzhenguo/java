@@ -2,13 +2,44 @@ package com.yangzg.chapter10;
 
 import java.util.Date;
 import java.util.concurrent.*;
+import java.util.stream.IntStream;
 
 /**
  * Created by Sam on 2019/6/28.
  */
 public class ThreadTest {
     public static void main(String[] args) {
-        test3();
+        test5();
+    }
+
+    private static void test5() {
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        IntStream.range(1, 100).forEach(num -> executorService.submit(() -> {
+            System.out.println(Thread.currentThread().getName() + ": " + num);
+        }));
+    }
+
+    private static void test4() {
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+
+        try {
+            System.out.println(thread.getState());
+            thread.start();
+            System.out.println(thread.getState());
+            Thread.sleep(1000);
+            System.out.println(thread.getState());
+            Thread.sleep(5000);
+            System.out.println(thread.getState());
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private static void test3() {
