@@ -10,6 +10,8 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+*.iml
+
 # Package Files #
 *.jar
 *.war
@@ -26,3 +28,4 @@ hs_err_pid*
 /springmvc/target/
 /shiro/target/
 /web3/target/
+/gjp/target/
