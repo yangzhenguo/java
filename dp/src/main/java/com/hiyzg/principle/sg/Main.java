@@ -12,5 +12,6 @@ public class Main {
         new C().depend1(new D());
         new C().depend3(new D());
         new C().depend4(new D());
+
     }
 }
