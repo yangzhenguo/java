@@ -1,6 +1,6 @@
 package com.hiyzg.simple_factory.order;
 
-import com.hiyzg.simple_factory.pizza.ChessePizza;
+import com.hiyzg.simple_factory.pizza.BJChessePizza;
 import com.hiyzg.simple_factory.pizza.Pizza;
 
 /**
@@ -9,6 +9,10 @@ import com.hiyzg.simple_factory.pizza.Pizza;
 public class ChesseOrder extends Order {
     @Override
     Pizza get(String type) {
-        return new ChessePizza();
+        if ("bj".equalsIgnoreCase(type)) {
+            return new BJChessePizza();
+        } else {
+            return null;
+        }
     }
 }
