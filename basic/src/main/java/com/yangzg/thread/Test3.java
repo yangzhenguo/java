@@ -1,5 +1,7 @@
 package com.yangzg.thread;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+
 /**
  * Created by Sam on 2019/9/12.
  */
@@ -16,10 +18,10 @@ public class Test3 {
     }
 
     static class MyRunnable implements Runnable {
-        private boolean flag = false;
+        private AtomicBoolean flag = new AtomicBoolean(false);
 
         public boolean isFlag() {
-            return flag;
+            return flag.get();
         }
 
         @Override
@@ -29,7 +31,7 @@ public class Test3 {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            this.flag = true;
+            this.flag.set(true);
             System.out.println("trued....");
         }
     }
