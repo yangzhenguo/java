@@ -15,6 +15,7 @@
         <module>web3</module>
         <module>gjp</module>
         <module>dp</module>
+        <module>tomcat</module>
     </modules>
 
     <properties>
