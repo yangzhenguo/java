@@ -16,6 +16,7 @@
         <module>gjp</module>
         <module>dp</module>
         <module>tomcat</module>
+        <module>myframework</module>
     </modules>
 
     <properties>
