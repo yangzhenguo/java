@@ -14,9 +14,6 @@ import java.io.InputStreamReader;
 public class ApplicationConfig implements MyWebInitializer {
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
-        servletContext.setInitParameter("name", "yzg");
-        System.out.println(String.format("ContextPath: %s", servletContext.getContextPath()));
-        System.out.println(servletContext.getRealPath("/META-INF"));
         try (
                 BufferedReader br = new BufferedReader(new InputStreamReader(servletContext.getResourceAsStream("/META-INF/services/javax.servlet.ServletContainerInitializer")))) {
             br.lines().forEach(System.out::println);

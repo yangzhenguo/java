@@ -24,8 +24,4 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /_book/
-/basic/target/
-/springmvc/target/
-/shiro/target/
-/web3/target/
-/gjp/target/
+/*/target/

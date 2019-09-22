@@ -1,6 +1,8 @@
 package com.yangzg.servlet;
 
-import com.yangzg.model.Person;
+import com.yangzg.model.Product;
+import com.yangzg.service.impl.ProductServiceImpl;
+import com.yangzg.service.inf.ProductService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
@@ -8,12 +10,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by Sam on 2019/9/18.
@@ -30,17 +30,26 @@ import java.util.stream.Stream;
 )
 public class IndexServlet extends HttpServlet {
     private static final long serialVersionUID = -2631589392534662440L;
+    private static final String INDEX_JSP = "/WEB-INF/pages/index.jsp";
+
+    private static final File INDEX_JSP_FILE;
+
+    private ProductService productService = new ProductServiceImpl();
+
+    static {
+        INDEX_JSP_FILE = Paths.get(IndexServlet.class.getClassLoader().getResource("/").getPath() + "/../../", INDEX_JSP).normalize().toFile();
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        response.getWriter().write("hello");
-        Map<String, String> map = Collections.list(this.getInitParameterNames()).stream().collect(Collectors.toMap(key -> key, this::getInitParameter));
-        System.out.println(map);
+        List<Product> list = this.productService.listAll();
+        request.setAttribute("products", list);
+        request.setAttribute("json", list);
+        request.getRequestDispatcher(INDEX_JSP).forward(request, response);
+    }
 
-        List<Person> list = Stream.generate(() -> new Person((int) (Math.random() * 100), "yzg")).limit(10).collect(Collectors.toList());
-        System.out.println(list);
-        request.setAttribute("list", list);
-        String json = list.stream().map(Person::toJSONString).collect(Collectors.joining(",", "[", "]"));
-        request.setAttribute("json", json);
-        request.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(request, response);
+    @Override
+    protected long getLastModified(HttpServletRequest req) {
+        return -1;
+        // return INDEX_JSP_FILE.lastModified();
     }
 }
