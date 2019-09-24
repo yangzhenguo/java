@@ -3,6 +3,7 @@ package com.yangzg.util;
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 
 import javax.sql.DataSource;
+import java.io.InputStream;
 import java.util.Properties;
 
 /**
@@ -17,7 +18,8 @@ public class MysqlPool {
             try {
                 if (dataSource == null) {
                     Properties properties = new Properties();
-                    properties.load(MysqlPool.class.getClassLoader().getResourceAsStream("/jdbc.properties"));
+                    InputStream stream = MysqlPool.class.getClassLoader().getResourceAsStream("jdbc.properties");
+                    properties.load(stream);
                     dataSource = BasicDataSourceFactory.createDataSource(properties);
                 }
             } catch (Exception e) {

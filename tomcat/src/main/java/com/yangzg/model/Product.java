@@ -13,10 +13,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Product {
-    private int id;
+    private Integer id;
     private String name;
-    private double marketPrice;
-    private double shopPrice;
+    private Double marketPrice;
+    private Double shopPrice;
     private String image;
     private Date date;
     private Boolean isHot;

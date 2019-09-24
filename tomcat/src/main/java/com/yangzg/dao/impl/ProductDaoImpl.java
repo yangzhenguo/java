@@ -2,10 +2,8 @@ package com.yangzg.dao.impl;
 
 import com.yangzg.dao.inf.ProductDao;
 import com.yangzg.model.Product;
-import com.yangzg.util.MysqlPool;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.BeanProcessor;
-import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 
@@ -17,10 +15,8 @@ import java.util.List;
 /**
  * Created by Sam on 2019/9/20.
  */
-public class ProductDaoImpl implements ProductDao {
-
+public class ProductDaoImpl extends BaseDaoImpl<Product> implements ProductDao {
     private static final String TABLE_NAME = "product_bak";
-    private QueryRunner queryRunner = new QueryRunner(MysqlPool.getDataSource());
 
     @Override
     public List<Product> selectAll() throws SQLException {

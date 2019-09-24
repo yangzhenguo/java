@@ -6,4 +6,5 @@ request.setCharacterEncoding("UTF-8");
     <jsp:param name="title" value="首页"/>
     <jsp:param name="content" value="pages/index-content"/>
     <jsp:param name="style" value="pages/index-style"/>
+    <jsp:param name="script" value="pages/index-script"/>
 </jsp:include>

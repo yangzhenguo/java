@@ -5,7 +5,7 @@
   Time: 6:33 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isErrorPage="true" trimDirectiveWhitespaces="true" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" isErrorPage="true" trimDirectiveWhitespaces="true" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +30,7 @@
             min-height: 100vh;
         }
     </style>
-    <c:if test="${not param.style}">
+    <c:if test="${not empty param.style}">
         <jsp:include page="/WEB-INF/${param.style}.jsp"/>
     </c:if>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -51,5 +51,8 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<c:if test="${not empty param.script}">
+    <jsp:include page="/WEB-INF/${param.script}.jsp"/>
+</c:if>
 </body>
 </html>

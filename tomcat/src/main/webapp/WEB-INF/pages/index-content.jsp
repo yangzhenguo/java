@@ -30,7 +30,10 @@
             <td>${product.date}</td>
             <td>${product.isHot ? '是' : '否'}</td>
             <td>${product.desc}</td>
-            <td><a href="${pageContext.request.contextPath}/deleteProduct?id=${product.id}">删除</a></td>
+            <td>
+                <a href="https://www.baidu.com/" class="delete">百度</a>
+                <a href="${pageContext.request.contextPath}/deleteProduct?id=${product.id}">删除</a>
+            </td>
         </tr>
     </c:forEach>
     </tbody>
