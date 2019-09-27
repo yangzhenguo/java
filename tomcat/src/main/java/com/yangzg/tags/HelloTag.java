@@ -24,15 +24,15 @@ public class HelloTag extends SimpleTagSupport {
 
     @Override
     public void doTag() throws JspException, IOException {
+        this.getJspContext().getOut().write("hello: ");
         IntStream.rangeClosed(1, this.times).forEach(times -> {
             try {
-                getJspBody().invoke(stringWriter);
+                getJspBody().invoke(null);
             } catch (JspException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         });
-        this.getJspContext().getOut().write("hello: " + stringWriter.toString());
     }
 }

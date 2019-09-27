@@ -52,6 +52,13 @@
         </attribute>
     </tag>
 
+    <function>
+        <description>???????????</description>
+        <name>now</name>
+        <function-class>com.yangzg.functions.DateTimeFunction</function-class>
+        <function-signature>java.lang.String now(java.lang.String))</function-signature>
+    </function>
+
 
     <!-- Invoke 'Generate' action to add tags or functions -->
 
