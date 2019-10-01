@@ -17,6 +17,7 @@
         <module>dp</module>
         <module>tomcat</module>
         <module>myframework</module>
+        <module>perm</module>
     </modules>
 
     <properties>
