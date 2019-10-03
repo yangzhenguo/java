@@ -8,6 +8,7 @@ import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -72,5 +73,15 @@ public abstract class BaseDaoImpl<T> implements BaseDao<T> {
             e.printStackTrace();
         }
         return Optional.empty();
+    }
+
+    @Override
+    public List<T> findAll() {
+        try {
+            return this.queryRunner.query(String.format("select * from %s", this.getTableName()), new BeanListHandler<T>(this.clazz));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Collections.EMPTY_LIST;
     }
 }
