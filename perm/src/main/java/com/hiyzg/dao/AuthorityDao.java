@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface AuthorityDao extends BaseDao<Authority> {
     List<Authority> findByUserId(int userId);
+
+    boolean deleteUserAuthorities(int id);
+
+    boolean createUserAuthorities(int id, List<Integer> authorityIds);
 }
