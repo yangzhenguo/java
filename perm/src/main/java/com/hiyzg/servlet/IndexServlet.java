@@ -1,5 +1,6 @@
 package com.hiyzg.servlet;
 
+import com.hiyzg.exception.NoPermissionException;
 import com.hiyzg.model.Authority;
 import com.hiyzg.model.User;
 import com.hiyzg.service.AuthorityService;
@@ -33,6 +34,9 @@ public class IndexServlet extends HttpServlet {
 //            e.printStackTrace();
 //            req.getRequestDispatcher("/WEB-INF/pages/index.jsp").forward(req, resp);
 //        }
+        Object obj = null;
+        System.out.println(obj.toString());
+        if (1 == 1) throw new NoPermissionException("haha");
         final String id = req.getParameter("id");
         if (id != null) {
             final User user = this.userService.get(Integer.parseInt(id)).orElse(null);

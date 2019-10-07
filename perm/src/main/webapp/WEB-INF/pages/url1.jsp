@@ -5,7 +5,7 @@
   Time: 8:21 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" pageEncoding="UTF-8" errorPage="/WEB-INF/error/403.jsp" %>
 <jsp:include page="/WEB-INF/templates/bootstrap.jsp">
     <jsp:param name="content" value="/WEB-INF/pages/url1-content.jsp"/>
 </jsp:include>
