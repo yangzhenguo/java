@@ -6,6 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:bundle basename="languages/i18n"/>
+<c:if test="${not empty param.lang}">
+    <c:out value="${param.lang}"/>
+    <fmt:setLocale value="${param.lang}"/>
+</c:if>
+<c:out value="${pageContext.request.locale}"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>权限管理系统</title>
+    <title><fmt:bundle basename="languages/i18n"><fmt:message key="title"></fmt:message></fmt:bundle> - <fmt:message key="title"></fmt:message></title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">

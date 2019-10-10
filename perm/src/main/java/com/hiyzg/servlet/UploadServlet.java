@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * Created by Sam on 2019/10/9.
  */
-@MultipartConfig()
+@MultipartConfig(fileSizeThreshold = 2 << 10, maxFileSize = 500 << 10)
 @WebServlet("/upload")
 public class UploadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -21,6 +21,7 @@ public class UploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final Part file = req.getPart("file");
         final long size = file.getSize();
-        resp.getWriter().write(file.getSubmittedFileName() + ": " + String.valueOf(size));
+        System.out.println(size);
+        resp.getWriter().write(req.getLocale().toString());
     }
 }
