@@ -53,6 +53,16 @@ public abstract class BaseDao<T> implements Dao<T> {
     }
 
     @Override
+    public long count(String sql, Object... params) {
+        try {
+            return queryRunner.query(sql, new ScalarHandler<Long>(), params);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public Optional<T> selectById(String sql, long id) {
         try {
             return Optional.ofNullable(this.queryRunner.query(sql, new BeanHandler<T>(clazz, new BasicRowProcessor(new BeanProcessor(this.getColumnToPropertyOverrides()))), id));

@@ -21,4 +21,9 @@ public class Book {
     private int salesAmount;
     private int storeNumber;
     private String remark;
+
+    public Book(long id, String title) {
+        this.id = id;
+        this.title = title;
+    }
 }

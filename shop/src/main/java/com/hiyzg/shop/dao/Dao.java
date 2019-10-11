@@ -12,5 +12,7 @@ public interface Dao<T> {
 
     boolean update(T t);
 
+    long count(String sql, Object... params);
+
     Optional<T> selectById(String sql, long id);
 }
