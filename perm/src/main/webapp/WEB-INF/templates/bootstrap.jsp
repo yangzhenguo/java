@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: Sam
   Date: 2019/9/30
@@ -8,12 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<fmt:bundle basename="languages/i18n"/>
 <c:if test="${not empty param.lang}">
-    <c:out value="${param.lang}"/>
     <fmt:setLocale value="${param.lang}"/>
 </c:if>
-<c:out value="${pageContext.request.locale}"/>
+<fmt:setBundle basename="languages.i18n"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title><fmt:bundle basename="languages/i18n"><fmt:message key="title"></fmt:message></fmt:bundle> - <fmt:message key="title"></fmt:message></title>
+    <title><fmt:message key="title"></fmt:message></title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -42,7 +40,17 @@
 </head>
 
 <body>
-
+<%
+request.setAttribute("date", new Date());
+%>
+<fmt:message key="tip">
+    <fmt:param>
+        <fmt:formatDate value="${date}" dateStyle="full"/>
+    </fmt:param>
+    <fmt:param>
+        <fmt:formatNumber value="5123412.53"/>
+    </fmt:param>
+</fmt:message>
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
         <div class="navbar-header">
@@ -52,13 +60,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">Project name</a>
+            <a class="navbar-brand" href="#"><fmt:message key="title"/></a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li class="active"><a href="#"><fmt:message key="home"/></a></li>
+                <li><a href="#about"><fmt:message key="about"/></a></li>
+                <li><a href="#contact"><fmt:message key="contact"/></a></li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
