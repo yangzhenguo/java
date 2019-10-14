@@ -27,8 +27,7 @@ public class BookDetailServlet extends HttpServlet {
         try {
             id = Integer.valueOf(idStr);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
+            throw new RuntimeException("参数传递错误");
         }
         final Optional<Book> bookOptional = this.bookService.getById(id);
         if (bookOptional.isPresent()) {

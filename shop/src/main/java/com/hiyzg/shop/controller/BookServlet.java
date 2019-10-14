@@ -26,9 +26,7 @@ public class BookServlet extends HttpServlet {
         int page = 0;
         try {
             page = Integer.valueOf(pageStr);
-        } catch (NumberFormatException e) {
-            e.printStackTrace();
-        }
+        } catch (NumberFormatException ignored) {}
         final BookCriteria criteria = new BookCriteria(page, SIZE);
         req.setAttribute("pager", this.bookService.listForPager(criteria));
         req.getRequestDispatcher("/WEB-INF/pages/book/index.jsp").forward(req, resp);
