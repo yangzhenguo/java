@@ -1,6 +1,6 @@
 package com.hiyzg.shop.controller;
 
-import com.hiyzg.shop.criteria.BookCriteria;
+import com.hiyzg.shop.model.Book;
 import com.hiyzg.shop.service.BookService;
 import com.hiyzg.shop.service.impl.BookServiceImpl;
 
@@ -10,27 +10,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Created by Sam on 2019/10/14.
  */
-@WebServlet("/books")
-public class BookServlet extends HttpServlet {
+@WebServlet("/book/detail")
+public class BookDetailServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static final int SIZE = 5;
     private BookService bookService = new BookServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String pageStr = req.getParameter("page");
-        int page = 0;
+        final String idStr = req.getParameter("id");
+        final int id;
         try {
-            page = Integer.valueOf(pageStr);
+            id = Integer.valueOf(idStr);
         } catch (NumberFormatException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        final BookCriteria criteria = new BookCriteria(page, SIZE);
-        req.setAttribute("pager", this.bookService.listForPager(criteria));
-        req.getRequestDispatcher("/WEB-INF/pages/book/index.jsp").forward(req, resp);
+        final Optional<Book> bookOptional = this.bookService.getById(id);
+        if (bookOptional.isPresent()) {
+            req.setAttribute("book", bookOptional.get());
+            req.getRequestDispatcher("/WEB-INF/pages/book/detail/index.jsp").forward(req, resp);
+        } else {
+            throw new RuntimeException("当前图书不存在");
+        }
     }
 }

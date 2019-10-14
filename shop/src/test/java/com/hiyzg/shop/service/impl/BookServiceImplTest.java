@@ -6,6 +6,10 @@ import com.hiyzg.shop.service.BookService;
 import com.hiyzg.util.Page;
 import org.junit.Test;
 
+import java.util.Optional;
+
+import static org.junit.Assert.*;
+
 /**
  * Created by Sam on 2019/10/14.
  */
@@ -19,4 +23,9 @@ public class BookServiceImplTest {
         System.out.println(bookPage);
     }
 
+    @Test
+    public void getById() {
+        final Optional<Book> bookOptional = this.bookService.getById(1);
+        assertTrue(bookOptional.isPresent());
+    }
 }

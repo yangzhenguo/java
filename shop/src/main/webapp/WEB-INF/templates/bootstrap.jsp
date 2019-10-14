@@ -38,8 +38,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
+    <c:url var="homeUrl" value="${pageContext.request.contextPath}/"/>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -49,11 +49,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#"><fmt:message key="title"/></a>
+                <a class="navbar-brand" href="${homeUrl}"><fmt:message key="title"/></a>
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#"><fmt:message key="home"/></a></li>
+                    <li class="active"><a href="${homeUrl}"><fmt:message key="home"/></a></li>
                     <li><a href="#about"><fmt:message key="about"/></a></li>
                     <li><a href="#contact"><fmt:message key="contact"/></a></li>
                 </ul>

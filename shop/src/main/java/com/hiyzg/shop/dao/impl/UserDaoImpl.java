@@ -13,7 +13,7 @@ import java.util.List;
 public class UserDaoImpl extends BaseDao<User> implements UserDao {
     @Override
     public User insert(User user) {
-        String sql = "insert into user(username, password) values(?, ?)";
+        String sql = "INSERT INTO user(username, password) VALUES(?, ?)";
         user.setId(this.insert(sql, user.getUsername(), user.getPassword()));
         return user;
     }
@@ -30,9 +30,9 @@ public class UserDaoImpl extends BaseDao<User> implements UserDao {
 
     @Override
     public long count(UserCriteria criteria) {
-        String sql = "select count(*) from user where 1 = 1";
+        String sql = "SELECT COUNT(*) FROM user WHERE 1 = 1";
         if (criteria.getName() != null) {
-            sql += " and username = ?";
+            sql += " AND username = ?";
             return this.count(sql, criteria.getName());
         } else {
             return this.count(sql);

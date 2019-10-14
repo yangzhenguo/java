@@ -8,6 +8,7 @@ import com.hiyzg.shop.service.BookService;
 import com.hiyzg.util.Page;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Sam on 2019/10/14.
@@ -20,5 +21,10 @@ public class BookServiceImpl implements BookService {
         long total = this.bookDao.count(criteria);
         List<Book> books = this.bookDao.getList(criteria);
         return new Page<>(books, criteria.getPage(), criteria.getSize(), total);
+    }
+
+    @Override
+    public Optional<Book> getById(int id) {
+        return this.bookDao.selectById(id);
     }
 }

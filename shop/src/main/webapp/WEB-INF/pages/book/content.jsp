@@ -21,8 +21,14 @@
         </thead>
         <tbody>
         <c:forEach var="book" items="${pager.list}">
+            <c:url var="detailUrl" value="${pageContext.request.contextPath}/book/detail">
+                <c:param name="id" value="${book.id}"/>
+                <c:param name="page" value="${pager.page}"/>
+            </c:url>
         <tr>
-            <td>${book.title}</td>
+            <td>
+                <a href="${detailUrl}">${book.title}</a>
+            </td>
             <td>${book.author}</td>
             <td><fmt:formatNumber type="currency" value="${book.price}" minFractionDigits="2" maxFractionDigits="2"/></td>
             <td><fmt:formatNumber value="${book.salesAmount}"/></td>
@@ -31,9 +37,6 @@
         </tr>
         </c:forEach>
         </tbody>
-        <tfoot>
-
-        </tfoot>
     </table>
 <c:url var="firstUrl" value="${pageContext.request.contextPath}/books">
     <c:param name="page" value="1"/>

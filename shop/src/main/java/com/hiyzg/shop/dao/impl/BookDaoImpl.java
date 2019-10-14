@@ -7,6 +7,7 @@ import com.hiyzg.shop.model.Book;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * Created by Sam on 2019/10/11.
@@ -27,13 +28,19 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
 
     @Override
     public long count(BookCriteria criteria) {
-        final String sql = "select count(*) from book where price >= ? and price <= ?";
+        final String sql = "SELECT COUNT(*) FROM book WHERE price >= ? AND price <= ?";
         return this.count(sql, criteria.getMinPrice(), criteria.getMaxPrice());
     }
 
     @Override
     public List<Book> getList(BookCriteria criteria) {
-        final String sql = "select * from book where price >= ? and price <= ? limit ?, ?";
+        final String sql = "SELECT * FROM book WHERE price >= ? AND price <= ? LIMIT ?, ?";
         return this.list(sql, criteria.getMinPrice(), criteria.getMaxPrice(), (criteria.getPage() - 1) * criteria.getSize(), criteria.getSize());
+    }
+
+    @Override
+    public Optional<Book> selectById(int id) {
+        final String sql = "SELECT * FROM book WHERE id = ?";
+        return this.selectById(sql, id);
     }
 }
