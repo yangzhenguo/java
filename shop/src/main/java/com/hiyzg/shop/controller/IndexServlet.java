@@ -16,7 +16,6 @@ public class IndexServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (1 == 1) throw new RuntimeException("error");
-        req.getRequestDispatcher("/WEB-INF/pages/home/index.jsp").forward(req, resp);
+        resp.sendRedirect(req.getContextPath() + "/books?page=1");
     }
 }

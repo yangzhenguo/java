@@ -49,13 +49,13 @@ public class PageTest {
     @Test
     public void hasNext() throws Exception {
         final Page<Book> page = new Page<>(books, 10);
-        assertTrue(page.hasNext());
+        assertTrue(page.isHasNext());
     }
 
     @Test
     public void hasPrev() throws Exception {
         final Page<Book> page = new Page<>(books, 2, 10);
-        assertTrue(page.hasPrev());
+        assertTrue(page.isHasPrev());
     }
 
     @Test

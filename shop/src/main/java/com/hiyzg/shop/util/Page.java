@@ -1,10 +1,13 @@
 package com.hiyzg.util;
 
+import lombok.Data;
+
 import java.util.List;
 
 /**
  * Created by Sam on 2019/10/11.
  */
+@Data
 public class Page<T> {
     List<T> list;
     private int page = 1;
@@ -22,8 +25,13 @@ public class Page<T> {
         this.total = total;
     }
 
+    public Page(List<T> list, int page, int size, long total) {
+        this(list, page, total);
+        this.size = size;
+    }
+
     public int getPage() {
-        return Math.max(1, this.page);
+        return Math.min(Math.max(1, this.page), getPages());
     }
 
     public int getSize() {
@@ -38,19 +46,19 @@ public class Page<T> {
         return (int)Math.ceil(1.0 * this.getTotal() / this.getSize());
     }
 
-    public boolean hasNext() {
+    public boolean isHasNext() {
         return this.getPage() < this.getPages();
     }
 
-    public boolean hasPrev() {
+    public boolean isHasPrev() {
         return this.getPage() > 1;
     }
 
     public int getPrevPage() {
-        return this.hasPrev() ? this.getPage() - 1 : this.getPage();
+        return this.isHasPrev() ? this.getPage() - 1 : this.getPage();
     }
 
     public int getNextPage() {
-        return this.hasNext() ? this.getPage() + 1 : this.getPage();
+        return this.isHasNext() ? this.getPage() + 1 : this.getPage();
     }
 }

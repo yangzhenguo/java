@@ -1,5 +1,6 @@
 package com.hiyzg.shop.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -15,4 +16,6 @@ public interface Dao<T> {
     long count(String sql, Object... params);
 
     Optional<T> selectById(String sql, long id);
+
+    List<T> list(String sql, Object... params);
 }

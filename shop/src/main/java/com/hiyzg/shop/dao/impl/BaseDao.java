@@ -6,12 +6,14 @@ import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -66,6 +68,16 @@ public abstract class BaseDao<T> implements Dao<T> {
     public Optional<T> selectById(String sql, long id) {
         try {
             return Optional.ofNullable(this.queryRunner.query(sql, new BeanHandler<T>(clazz, new BasicRowProcessor(new BeanProcessor(this.getColumnToPropertyOverrides()))), id));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<T> list(final String sql, Object... params) {
+        try {
+            return this.queryRunner.query(sql, new BeanListHandler<T>(clazz, new BasicRowProcessor(new BeanProcessor(this.getColumnToPropertyOverrides()))), params);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
