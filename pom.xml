@@ -18,6 +18,7 @@
         <module>tomcat</module>
         <module>myframework</module>
         <module>perm</module>
+        <module>shop</module>
     </modules>
 
     <properties>
