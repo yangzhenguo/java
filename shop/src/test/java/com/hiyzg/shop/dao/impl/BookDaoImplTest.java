@@ -40,6 +40,7 @@ public class BookDaoImplTest {
         final BookCriteria criteria = new BookCriteria(1);
         final long count = this.bookDao.count(criteria);
         System.out.println(count);
+        assertTrue(count > 0);
     }
 
     @Test
@@ -47,5 +48,6 @@ public class BookDaoImplTest {
         final BookCriteria criteria = new BookCriteria(1);
         final List<Book> books = this.bookDao.getList(criteria);
         System.out.println(books);
+        assertTrue(!books.isEmpty());
     }
 }
