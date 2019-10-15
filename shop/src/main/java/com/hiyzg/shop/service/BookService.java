@@ -2,6 +2,7 @@ package com.hiyzg.shop.service;
 
 import com.hiyzg.shop.criteria.BookCriteria;
 import com.hiyzg.shop.model.Book;
+import com.hiyzg.shop.util.ShopCart;
 import com.hiyzg.util.Page;
 
 import java.util.Optional;
@@ -12,5 +13,9 @@ import java.util.Optional;
 public interface BookService {
     Page<Book> listForPager(BookCriteria criteria);
 
-    Optional<Book> getById(final int id);
+    Optional<Book> getById(final long id);
+
+    void addToCart(long id, ShopCart shopCart);
+
+    void addToCart(Book book, ShopCart shopCart);
 }

@@ -14,5 +14,5 @@ public interface BookDao extends Dao<Book> {
 
     List<Book> getList(BookCriteria criteria);
 
-    Optional<Book> selectById(final int id);
+    Optional<Book> selectById(final long id);
 }

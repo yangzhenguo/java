@@ -39,7 +39,7 @@ public class BookDaoImpl extends BaseDao<Book> implements BookDao {
     }
 
     @Override
-    public Optional<Book> selectById(int id) {
+    public Optional<Book> selectById(long id) {
         final String sql = "SELECT * FROM book WHERE id = ?";
         return this.selectById(sql, id);
     }

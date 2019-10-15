@@ -5,6 +5,7 @@ import com.hiyzg.shop.dao.BookDao;
 import com.hiyzg.shop.dao.impl.BookDaoImpl;
 import com.hiyzg.shop.model.Book;
 import com.hiyzg.shop.service.BookService;
+import com.hiyzg.shop.util.ShopCart;
 import com.hiyzg.util.Page;
 
 import java.util.List;
@@ -24,7 +25,22 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Optional<Book> getById(int id) {
+    public Optional<Book> getById(long id) {
         return this.bookDao.selectById(id);
+    }
+
+    @Override
+    public void addToCart(long id, ShopCart shopCart) {
+        final Optional<Book> bookOptional = this.getById(id);
+        if (bookOptional.isPresent()) {
+            this.addToCart(bookOptional.get(), shopCart);
+        } else {
+            throw new RuntimeException("图书不存在");
+        }
+    }
+
+    @Override
+    public void addToCart(Book book, ShopCart shopCart) {
+        shopCart.add(book);
     }
 }

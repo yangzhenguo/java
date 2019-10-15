@@ -5,9 +5,21 @@
   Time: 1:49 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setBundle basename="i18n.web"/>
+    <c:if test="${not empty sessionScope.cart}">
+        <c:url var="toCartUrl" value="/cart"/>
+        <div class="well">
+            <fmt:message key="cartTip">
+                <fmt:param value="${cart.count}"/>
+                <fmt:param>
+                    <a href="${toCartUrl}"><fmt:message key="cart"></fmt:message></a>
+                </fmt:param>
+            </fmt:message>
+        </div>
+    </c:if>
     <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0;">
         <thead>
         <tr>
@@ -17,13 +29,17 @@
             <th>已售</th>
             <th>库存</th>
             <th>发版时间</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="book" items="${pager.list}">
-            <c:url var="detailUrl" value="${pageContext.request.contextPath}/book/detail">
+            <c:url var="detailUrl" value="/book/detail">
                 <c:param name="id" value="${book.id}"/>
                 <c:param name="page" value="${pager.page}"/>
+            </c:url>
+            <c:url var="cartUrl" value="/addToCart">
+                <c:param name="id" value="${book.id}"/>
             </c:url>
         <tr>
             <td>
@@ -33,15 +49,18 @@
             <td><fmt:formatNumber type="currency" value="${book.price}" minFractionDigits="2" maxFractionDigits="2"/></td>
             <td><fmt:formatNumber value="${book.salesAmount}"/></td>
             <td><fmt:formatNumber value="${book.storeNumber}"/></td>
-            <th><fmt:formatDate value="${book.publishingDate}" type="both"/></th>
+            <td><fmt:formatDate value="${book.publishingDate}" type="both"/></td>
+            <td>
+                <a href="${cartUrl}"><fmt:message key="cart"></fmt:message></a>
+            </td>
         </tr>
         </c:forEach>
         </tbody>
     </table>
-<c:url var="firstUrl" value="${pageContext.request.contextPath}/books">
+<c:url var="firstUrl" value="/books">
     <c:param name="page" value="1"/>
 </c:url>
-<c:url var="lastUrl" value="${pageContext.request.contextPath}/books">
+<c:url var="lastUrl" value="/books">
     <c:param name="page" value="${pager.pages}"/>
 </c:url>
     <nav aria-label="pagination">
@@ -62,7 +81,7 @@
             </c:if>
 
             <c:forEach begin="1" end="${pager.pages}" var="page">
-                <c:url var="currentUrl" value="${pageContext.request.contextPath}/books">
+                <c:url var="currentUrl" value="/books">
                     <c:param name="page" value="${page}"/>
                 </c:url>
                 <c:if test="${pager.page == page}">
