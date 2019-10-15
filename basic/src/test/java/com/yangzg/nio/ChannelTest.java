@@ -2,9 +2,7 @@ package com.yangzg.nio;
 
 import org.junit.Test;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
@@ -14,9 +12,8 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.*;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by Sam on 2019/10/13.
@@ -158,7 +155,9 @@ public class ChannelTest {
 
             final Selector selector = Selector.open();
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            while (selector.select() > 0) {
+            int count;
+            while ((count = selector.select()) > 0) {
+                System.out.println(String.format("count: %d", count));
                 final Set<SelectionKey> selectionKeys = selector.selectedKeys();
                 final Iterator<SelectionKey> iterator = selectionKeys.iterator();
                 while (iterator.hasNext()) {
@@ -173,9 +172,8 @@ public class ChannelTest {
                             final ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
                             while (socketChannel.read(buffer) > -1) {
                                 buffer.flip();
-                                while (buffer.hasRemaining()) {
-                                    System.out.print((char) buffer.get());
-                                }
+                                final OutputStream printStream = new PrintStream(System.out);
+                                printStream.write(buffer.array(), 0, buffer.limit());
                                 buffer.clear();
                             }
                             socketChannel.close();
@@ -185,7 +183,63 @@ public class ChannelTest {
                     }
                     iterator.remove();
                 }
+                TimeUnit.SECONDS.sleep(2);
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test9() {
+        try (
+                final SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(InetAddress.getLocalHost(), 8009));
+                final Selector selector = Selector.open()
+        ) {
+            socketChannel.configureBlocking(false);
+            final SelectionKey selectionKey = socketChannel.register(selector, SelectionKey.OP_CONNECT | SelectionKey.OP_WRITE);
+            final int interest = selectionKey.interestOps();
+            final SelectionKey selectionKey1 = selectionKey.interestOps(SelectionKey.OP_CONNECT);
+            System.out.println(selectionKey1.channel());
+            System.out.println(interest);
+
+            selectionKey.attach(new ArrayList<String>(){
+                private static final long serialVersionUID = 1L;
+                {
+                    add("abc");
+                    add("def");
+                    add("ghi");
+                }
+            });
+            final List<String> strings = (List<String>) selectionKey.attachment();
+            System.out.println(strings);
+
+            selectionKey.readyOps();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test10() {
+        try (
+                FileChannel fromChannel = FileChannel.open(Paths.get("/Users/Sam/work/java/java/java.iml"), StandardOpenOption.READ);
+                FileChannel toChannel = FileChannel.open(Paths.get("./test.txt"), StandardOpenOption.CREATE, StandardOpenOption.WRITE);
+        ) {
+            System.out.println(fromChannel.size());
+            System.out.println(new File("/Users/Sam/work/java/java/java.iml").length());
+            fromChannel.transferTo(0, fromChannel.size(), toChannel);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test11() {
+        try (FileChannel fileChannel = FileChannel.open(Paths.get("./test.txt"), StandardOpenOption.WRITE, StandardOpenOption.CREATE)) {
+            fileChannel.truncate(fileChannel.size() / 2);
         } catch (IOException e) {
             e.printStackTrace();
         }
