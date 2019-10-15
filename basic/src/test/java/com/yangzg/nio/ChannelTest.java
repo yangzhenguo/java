@@ -5,15 +5,18 @@ import org.junit.Test;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.MappedByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
+import java.nio.channels.*;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * Created by Sam on 2019/10/13.
@@ -117,6 +120,72 @@ public class ChannelTest {
 
         try (FileChannel fileChannel = FileChannel.open(Paths.get("headers.txt"), StandardOpenOption.CREATE, StandardOpenOption.WRITE)) {
             fileChannel.write(new ByteBuffer[]{headerTitle, headerBody});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test7() {
+        try (SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress(InetAddress.getByName("www.baidu.com"), 80))) {
+            final ByteBuffer buffer = ByteBuffer.allocate(1 << 10);
+            buffer.put("GET / HTTP/1.1\nHost: www.baidu.com\nConnection: keep-alive\nAccept: */*\nUser-Agent: curl/7.54.0\n\n".getBytes());
+            buffer.flip();
+            socketChannel.write(buffer);
+            socketChannel.shutdownOutput();
+            buffer.clear();
+
+            while(socketChannel.read(buffer) > -1) {
+                buffer.flip();
+                while (buffer.hasRemaining()) {
+                    System.out.print((char)buffer.get());
+                }
+                buffer.clear();
+            }
+
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test8() {
+        try (ServerSocketChannel serverSocketChannel = ServerSocketChannel.open()) {
+            serverSocketChannel.bind(new InetSocketAddress(80));
+            serverSocketChannel.configureBlocking(false);
+
+            final Selector selector = Selector.open();
+            serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+            while (selector.select() > 0) {
+                final Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                final Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                while (iterator.hasNext()) {
+                    final SelectionKey selectionKey = iterator.next();
+                    try {
+                        if (selectionKey.isAcceptable()) {
+                            final SocketChannel socketChannel = serverSocketChannel.accept();
+                            socketChannel.configureBlocking(false);
+                            socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1 << 10));
+                        } else if (selectionKey.isReadable()) {
+                            final SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+                            final ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
+                            while (socketChannel.read(buffer) > -1) {
+                                buffer.flip();
+                                while (buffer.hasRemaining()) {
+                                    System.out.print((char) buffer.get());
+                                }
+                                buffer.clear();
+                            }
+                            socketChannel.close();
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    iterator.remove();
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
