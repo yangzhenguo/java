@@ -244,4 +244,91 @@ public class ChannelTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void test12() {
+        try (
+                SocketChannel socketChannel = SocketChannel.open();
+                Selector selector = Selector.open();
+                FileChannel fileChannel = FileChannel.open(Paths.get("./result.txt"), StandardOpenOption.WRITE, StandardOpenOption.CREATE)
+        ) {
+            socketChannel.configureBlocking(false);
+            socketChannel.register(selector, SelectionKey.OP_CONNECT);
+            socketChannel.connect(new InetSocketAddress(InetAddress.getLocalHost(), 8009));
+            while (selector.select() > 0) {
+                final Set<SelectionKey> selectionKeys = selector.selectedKeys();
+                final Iterator<SelectionKey> iterator = selectionKeys.iterator();
+                while (iterator.hasNext()) {
+                    final SelectionKey selectionKey = iterator.next();
+                    if (selectionKey.isConnectable()) {
+                        System.out.println("1");
+                        if (socketChannel.finishConnect()) {
+
+                            final String message = "GET / HTTP/1.1\n\n";
+                            final ByteBuffer buffer = ByteBuffer.wrap(message.getBytes());
+                            socketChannel.write(buffer);
+                            socketChannel.shutdownOutput();
+                            /*
+                            buffer.clear();
+                            int length;
+                            while ((length = socketChannel.read(buffer)) > -1) {
+                                buffer.flip();
+                                System.out.println(String.format("length: %d", length));
+                                while (buffer.hasRemaining()) {
+                                    fileChannel.write(buffer);
+                                }
+                                buffer.clear();
+                            }
+                            */
+                            buffer.clear();
+                            socketChannel.register(selector, SelectionKey.OP_READ, buffer);
+                        }
+                    } else if (selectionKey.isReadable()) {
+                        System.out.println("2");
+                        final ByteBuffer buffer = (ByteBuffer) selectionKey.attachment();
+                        while (socketChannel.read(buffer) > -1) {
+                            buffer.flip();
+                            while (buffer.hasRemaining()) {
+                                System.out.print((char)buffer.get());
+                            }
+                            buffer.clear();
+                        }
+                        selectionKey.cancel();
+                    } else if (selectionKey.isWritable()) {
+                        System.out.println("3");
+                    }
+                    iterator.remove();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test13() {
+        try (DatagramChannel datagramChannel = DatagramChannel.open()) {
+            datagramChannel.connect(new InetSocketAddress(InetAddress.getLocalHost(), 8080));
+            datagramChannel.write(ByteBuffer.wrap("hello world".getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test14() {
+        try (DatagramChannel datagramChannel = DatagramChannel.open()) {
+            datagramChannel.bind(new InetSocketAddress(9999));
+            final ByteBuffer buffer = ByteBuffer.allocate(1 << 10);
+            buffer.clear();
+            datagramChannel.receive(buffer);
+            buffer.flip();
+            while (buffer.hasRemaining()) {
+                System.out.print((char)buffer.get());
+            }
+            buffer.clear();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
