@@ -21,7 +21,7 @@ import java.util.Optional;
  * Created by Sam on 2019/10/11.
  */
 public abstract class BaseDao<T> implements Dao<T> {
-    private QueryRunner queryRunner = new QueryRunner(DataSourceUtil.getDataSource());
+    protected QueryRunner queryRunner = new QueryRunner(DataSourceUtil.getDataSource());
 
     private Class<T> clazz;
 

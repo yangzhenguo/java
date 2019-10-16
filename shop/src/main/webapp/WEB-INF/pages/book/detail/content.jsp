@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<c:url var="continueUrl" value="${pageContext.request.contextPath}/books">
+<c:url var="continueUrl" value="/books">
     <c:if test="${not empty param.page}">
         <c:param name="page" value="${param.page}"/>
     </c:if>

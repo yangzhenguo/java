@@ -9,13 +9,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <fmt:setBundle basename="i18n.web"/>
-    <c:if test="${not empty sessionScope.cart}">
+    <c:if test="${not empty sessionScope.cart.books}">
         <c:url var="toCartUrl" value="/cart"/>
         <div class="well">
             <fmt:message key="cartTip">
                 <fmt:param value="${cart.count}"/>
                 <fmt:param>
-                    <a href="${toCartUrl}"><fmt:message key="cart"></fmt:message></a>
+                    <a href="${toCartUrl}"><fmt:message key="clickToCart"></fmt:message></a>
                 </fmt:param>
             </fmt:message>
         </div>
@@ -23,12 +23,12 @@
     <table class="table table-bordered table-hover table-striped" style="margin-bottom: 0;">
         <thead>
         <tr>
-            <th>书名</th>
-            <th>作者</th>
-            <th>价格</th>
-            <th>已售</th>
-            <th>库存</th>
-            <th>发版时间</th>
+            <th><fmt:message key="book.title"/></th>
+            <th><fmt:message key="book.author"/></th>
+            <th><fmt:message key="book.price"/></th>
+            <th><fmt:message key="book.salesCount"/></th>
+            <th><fmt:message key="book.storeCount"/></th>
+            <th><fmt:message key="book.publishingDate"/></th>
             <th></th>
         </tr>
         </thead>
@@ -51,7 +51,7 @@
             <td><fmt:formatNumber value="${book.storeNumber}"/></td>
             <td><fmt:formatDate value="${book.publishingDate}" type="both"/></td>
             <td>
-                <a href="${cartUrl}"><fmt:message key="cart"></fmt:message></a>
+                <a href="${cartUrl}"><fmt:message key="addToCart"></fmt:message></a>
             </td>
         </tr>
         </c:forEach>

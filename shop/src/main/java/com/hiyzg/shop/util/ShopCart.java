@@ -73,6 +73,10 @@ public class ShopCart {
         return this.books.values().stream().mapToInt(ShopCartItem::getQuantity).reduce(0, (prev, next) -> prev + next);
     }
 
+    public double getPrice() {
+        return this.books.values().stream().mapToDouble(ShopCartItem::getPrice).reduce(0, (prev, next) -> prev + next);
+    }
+
     public boolean isEmpty() {
         return this.books.isEmpty();
     }

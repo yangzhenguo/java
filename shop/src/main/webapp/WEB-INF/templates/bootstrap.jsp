@@ -30,6 +30,11 @@
         body {
             padding-top: 60px;
         }
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none !important;
+            margin: 0;
+        }
     </style>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -39,7 +44,7 @@
     <![endif]-->
 </head>
 <body>
-    <c:url var="homeUrl" value="${pageContext.request.contextPath}/"/>
+    <c:url var="homeUrl" value="/"/>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="container">
             <div class="navbar-header">
@@ -53,7 +58,7 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="${homeUrl}"><fmt:message key="home"/></a></li>
+                    <li class="${pageContext.request.servletPath == '/WEB-INF/pages/book/index.jsp' ? 'active' : ''}"><a href="${homeUrl}"><fmt:message key="home"/></a></li>
                     <li><a href="#about"><fmt:message key="about"/></a></li>
                     <li><a href="#contact"><fmt:message key="contact"/></a></li>
                 </ul>
@@ -78,5 +83,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <c:if test="${not empty param.js}">
+        <jsp:include page="${param.js}"/>
+    </c:if>
 </body>
 </html>

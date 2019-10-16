@@ -43,4 +43,14 @@ public class BookServiceImpl implements BookService {
     public void addToCart(Book book, ShopCart shopCart) {
         shopCart.add(book);
     }
+
+    @Override
+    public void deleteFromCart(int id, ShopCart shopCart) {
+        shopCart.remove(id);
+    }
+
+    @Override
+    public void changeCart(int id, int count, ShopCart shopCart) {
+        shopCart.update(id, count);
+    }
 }

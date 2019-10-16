@@ -18,4 +18,8 @@ public interface BookService {
     void addToCart(long id, ShopCart shopCart);
 
     void addToCart(Book book, ShopCart shopCart);
+
+    void deleteFromCart(int id, ShopCart shopCart);
+
+    void changeCart(int id, int count, ShopCart shopCart);
 }

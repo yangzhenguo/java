@@ -34,4 +34,10 @@ public class UserDaoImplTest {
         final long count = this.userDao.count(new UserCriteria("yzg"));
         System.out.println(count);
     }
+
+    @Test
+    public void selectByUsername() {
+        final Optional<User> userOptional = this.userDao.selectByUsername("yzg");
+        userOptional.ifPresent(System.out::println);
+    }
 }
