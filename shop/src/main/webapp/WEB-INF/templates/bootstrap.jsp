@@ -36,6 +36,9 @@
             margin: 0;
         }
     </style>
+    <c:if test="${not empty param.style}">
+        <jsp:include page="${param.style}"/>
+    </c:if>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

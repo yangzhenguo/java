@@ -23,16 +23,21 @@ public class AddToCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final String idStr = req.getParameter("id");
-        long id;
+        final String pageStr = req.getParameter("page");
+        long id, page = 1;
         try {
             id = Integer.valueOf(idStr);
         } catch (NumberFormatException e) {
             throw new RuntimeException("参数错误");
         }
 
+        try {
+            page = Integer.valueOf(pageStr);
+        } catch (NumberFormatException ignored) {}
+
         final ShopCart shopCart = ShopCartUtil.getShopCart(req);
         this.bookService.addToCart(id, shopCart);
 
-        resp.sendRedirect(req.getContextPath() + "/books");
+        resp.sendRedirect(req.getContextPath() + "/books?page=" + page);
     }
 }

@@ -40,6 +40,7 @@
             </c:url>
             <c:url var="cartUrl" value="/addToCart">
                 <c:param name="id" value="${book.id}"/>
+                <c:param name="page" value="${pager.page}"/>
             </c:url>
         <tr>
             <td>

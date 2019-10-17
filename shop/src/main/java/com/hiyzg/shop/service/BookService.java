@@ -1,7 +1,9 @@
 package com.hiyzg.shop.service;
 
 import com.hiyzg.shop.criteria.BookCriteria;
+import com.hiyzg.shop.model.Account;
 import com.hiyzg.shop.model.Book;
+import com.hiyzg.shop.model.User;
 import com.hiyzg.shop.util.ShopCart;
 import com.hiyzg.util.Page;
 
@@ -22,4 +24,6 @@ public interface BookService {
     void deleteFromCart(int id, ShopCart shopCart);
 
     void changeCart(int id, int count, ShopCart shopCart);
+
+    void transact(User user, Account account, ShopCart shopCart);
 }

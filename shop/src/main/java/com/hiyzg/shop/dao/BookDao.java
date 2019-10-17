@@ -15,4 +15,6 @@ public interface BookDao extends Dao<Book> {
     List<Book> getList(BookCriteria criteria);
 
     Optional<Book> selectById(final long id);
+
+    void batchUpdateSalesAndStoreAmount(Object[][] params);
 }

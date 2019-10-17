@@ -2,6 +2,7 @@ package com.hiyzg.shop.dao.impl;
 
 import com.hiyzg.shop.dao.AccountDao;
 import com.hiyzg.shop.model.Account;
+import com.hiyzg.shop.util.ConnectionContext;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 
 import java.sql.SQLException;
@@ -26,7 +27,7 @@ public class AccountDaoImpl extends BaseDao<Account> implements AccountDao {
     public boolean updateBalance(String no, double balance) {
         final String sql = "UPDATE account SET balance = ? WHERE no = ?";
         try {
-            return this.queryRunner.update(sql, balance, no) > 0;
+            return this.queryRunner.update(ConnectionContext.getInstance().get(), sql, balance, no) > 0;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());

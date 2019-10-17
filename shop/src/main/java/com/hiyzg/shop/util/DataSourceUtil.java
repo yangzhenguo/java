@@ -11,6 +11,8 @@ import java.util.Properties;
 public class DataSourceUtil {
     private static volatile DataSource dataSource;
 
+    private DataSourceUtil() {}
+
     public static DataSource getDataSource() {
         if (dataSource == null) {
             synchronized (DataSourceUtil.class) {

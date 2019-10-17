@@ -35,24 +35,27 @@
         </fmt:message>
     </p>
 </c:if>
-<c:forEach var="item" items="${sessionScope.cart.books}">
-    <c:set var="book" value="${item.value.book}"/>
-    <c:url var="deleteUrl" value="/deleteFromCart">
-        <c:param name="id" value="${book.id}"/>
-    </c:url>
+<c:if test="${not empty sessionScope.cart.books}">
     <ul class="list-group">
-        <li class="list-group-item">
-            <%--<span class="badge">${item.value.quantity}</span>--%>
-            <input type="number" class="pull-right form-control input-sm text-center" data-id="${book.id}" data-count="${item.value.quantity}" style="width: 40px;" value="${item.value.quantity}">
-            <h4 class="list-group-item-heading">${book.title}</h4>
-            <p class="list-group-item-text">
-                <fmt:message key="book.author"/>: ${book.author}<br>
-                <fmt:message key="book.price"/>: <fmt:formatNumber type="currency" value="${book.price}" maxFractionDigits="2"/><br>
-                <fmt:message key="book.publishingDate"/>: <fmt:formatDate value="${book.publishingDate}" type="both"/>
-            </p>
-            <div class="text-right">
-                <a href="${deleteUrl}" class="btn btn-danger btn-sm delete">删除</a>
-            </div>
-        </li>
+        <c:forEach var="item" items="${sessionScope.cart.books}">
+            <c:set var="book" value="${item.value.book}"/>
+            <c:url var="deleteUrl" value="/deleteFromCart">
+                <c:param name="id" value="${book.id}"/>
+            </c:url>
+            <li class="list-group-item">
+                <input type="number" class="pull-right form-control input-sm text-center" data-id="${book.id}" data-count="${item.value.quantity}" style="width: 40px;" value="${item.value.quantity}">
+                <h4 class="list-group-item-heading">${book.title}</h4>
+                <p class="list-group-item-text">
+                    <fmt:message key="book.author"/>: ${book.author}<br>
+                    <fmt:message key="book.price"/>: <fmt:formatNumber type="currency" value="${book.price}" maxFractionDigits="2"/><br>
+                    <fmt:message key="book.publishingDate"/>: <fmt:formatDate value="${book.publishingDate}" type="both"/>
+                </p>
+                <div class="text-right">
+                    <a href="${deleteUrl}" class="btn btn-danger btn-sm delete">删除</a>
+                </div>
+            </li>
+        </c:forEach>
     </ul>
-</c:forEach>
+    <c:url var="previewTransactionUrl" value="/previewTransaction"/>
+    <a href="${previewTransactionUrl}" class="preview-transaction btn-lg btn-block btn btn-success pull-right">预览订单</a>
+</c:if>
