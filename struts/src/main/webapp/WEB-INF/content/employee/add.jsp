@@ -1,12 +1,11 @@
-<%@ page import="java.util.Arrays" %>
-<%@ page import="com.opensymphony.xwork2.ActionContext" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: Sam
-  Date: 2019/10/18
-  Time: 11:08 AM
+  Date: 2019/10/22
+  Time: 10:49 AM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Starter Template for Bootstrap</title>
+    <title>创建</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -29,6 +28,7 @@
 
         .starter-template {
             padding: 40px 15px;
+            text-align: inherit;
         }
     </style>
 
@@ -65,16 +65,28 @@
 <div class="container">
 
     <div class="starter-template">
-        <div class="well">
-            <s:form action="user">
-                <s:textfield name="username" label="Uername"/>
-                <s:password name="password" label="Password"/>
-                <s:textarea name="note" label="Note"/>
-                <s:submit/>
-            </s:form>
-        </div>
+        <s:form action="addSubmit" method="post" role="form" theme="simple">
+            <legend>创建</legend>
+
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <s:textfield type="text" class="form-control" name="firstName" id="first-name" placeholder="Input First Name"/>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <s:textfield type="text" class="form-control" name="lastName" id="last-name" placeholder="Input Last Name"/>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <s:textfield type="email" class="form-control" name="email" id="email" placeholder="Input Email"/>
+            </div>
+
+            <s:submit class="btn btn-primary" type="button">提交</s:submit>
+        </s:form>
     </div>
-    <s:debug/>
+
 </div><!-- /.container -->
 
 <!-- Bootstrap core JavaScript
@@ -84,4 +96,3 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
 </html>
-

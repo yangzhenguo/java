@@ -1,11 +1,13 @@
 package com.yangzg.dao;
 
-import com.yangzg.model.Department;
 import com.yangzg.model.Employee;
-import com.yangzg.model.Role;
 
-import java.time.LocalTime;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sam on 2019/10/21.
@@ -32,26 +34,16 @@ public class EmployeeDao {
     }
 
     public boolean insert(Employee employee) {
-        return EMPLOYEE_MAP.put(LocalTime.now().getSecond(), employee) != null;
+        final int id = (int)LocalDateTime.now().toEpochSecond(ZoneOffset.UTC);
+        employee.setId(id);
+        return EMPLOYEE_MAP.put(id, employee) != null;
     }
 
     public void update(Employee employee) {
         EMPLOYEE_MAP.put(employee.getId(), employee);
     }
 
-    public List<Department> getDepartments() {
-        return Arrays.asList(
-                new Department(1, "dept1"),
-                new Department(2, "dept2"),
-                new Department(3, "dept3")
-        );
-    }
-
-    public List<Role> getRoles() {
-        return Arrays.asList(
-                new Role(1, "role1"),
-                new Role(2, "role2"),
-                new Role(3, "role3")
-        );
+    public Employee get(int id) {
+        return EMPLOYEE_MAP.get(id);
     }
 }

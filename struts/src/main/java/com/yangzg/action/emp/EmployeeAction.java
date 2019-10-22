@@ -1,12 +1,12 @@
 package com.yangzg.action.emp;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.opensymphony.xwork2.ModelDriven;
+import com.opensymphony.xwork2.Preparable;
 import com.yangzg.dao.EmployeeDao;
+import com.yangzg.model.Employee;
 import lombok.Data;
-import org.apache.struts2.convention.annotation.Action;
-import org.apache.struts2.convention.annotation.Namespace;
-import org.apache.struts2.convention.annotation.Result;
-import org.apache.struts2.convention.annotation.Results;
+import org.apache.struts2.convention.annotation.*;
 import org.apache.struts2.interceptor.RequestAware;
 
 import java.util.Map;
@@ -16,54 +16,81 @@ import java.util.Map;
  */
 @Namespace("/employee")
 @Results({
-        @Result(name = ActionSupport.INPUT, location = "/WEB-INF/pages/employee/input.jsp"),
-        @Result(name = ActionSupport.SUCCESS, location = "/WEB-INF/pages/employee/success.jsp"),
-        @Result(name = "list", location = "/WEB-INF/pages/employee/list.jsp"),
-        @Result(name = "delete", type = "redirect", location = "list"),
+        @Result(name = EmployeeAction.REDIRECT_LIST, type = "redirectAction", params = {"actionName", "list"}),
 })
+@InterceptorRef(value = "paramsPrepareParamsStack", params = {"prepare.alwaysInvokePrepare", "false"})
 @Data
-public class EmployeeAction implements RequestAware {
+public class EmployeeAction implements RequestAware, Preparable, ModelDriven<Employee> {
+    public static final String REDIRECT_LIST = "redirectList";
     private EmployeeDao employeeDao = new EmployeeDao();
     private Map<String, Object> requestMap;
 
+
+    private Employee employee;
+
     private int id;
 
-    /*
-    private String name;
-    private String password;
-    private String gender;
-    private String department;
-    private List<String> roles;
-    private String desc;
-    */
-
-    @Action(value = "input")
-    public String input() {
-        this.requestMap.put("departments", employeeDao.getDepartments());
-        this.requestMap.put("roles", employeeDao.getRoles());
-        return ActionSupport.INPUT;
+    @Action(value = "add")
+    public String add() {
+        return ActionSupport.SUCCESS;
     }
 
-    @Action(value = "submit")
-    public String submit() {
-        System.out.println(this);
+    public void prepareAddSubmit() {
+        this.employee = new Employee();
+    }
+
+    @Action(value = "addSubmit")
+    public String addSubmit() {
+        this.employeeDao.insert(this.employee);
+        return REDIRECT_LIST;
+    }
+
+    public void prepareEdit() {
+        this.employee = this.employeeDao.get(this.id);
+    }
+
+    @Action(value = "edit")
+    public String edit() {
         return ActionSupport.SUCCESS;
+    }
+
+    public void prepareEditSubmit() {
+        this.employee = new Employee();
+    }
+
+    @Action(value = "editSubmit")
+    public String editSubmit() {
+        this.employeeDao.update(this.employee);
+        return REDIRECT_LIST;
     }
 
     @Action(value = "list")
     public String list() {
         requestMap.put("employees", this.employeeDao.getEmployees());
-        return "list";
+        return ActionSupport.SUCCESS;
     }
 
     @Action(value = "delete")
     public String delete() {
         this.employeeDao.delete(this.id);
-        return "delete";
+        return REDIRECT_LIST;
     }
 
     @Override
     public void setRequest(Map<String, Object> map) {
         this.requestMap = map;
+    }
+
+    @Action("index")
+    public String index() {
+        return REDIRECT_LIST;
+    }
+
+    @Override
+    public void prepare() throws Exception {}
+
+    @Override
+    public Employee getModel() {
+        return this.employee;
     }
 }
