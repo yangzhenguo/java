@@ -6,6 +6,7 @@ import com.opensymphony.xwork2.Preparable;
 import com.yangzg.dao.EmployeeDao;
 import com.yangzg.model.Employee;
 import lombok.Data;
+import lombok.ToString;
 import org.apache.struts2.convention.annotation.*;
 import org.apache.struts2.interceptor.RequestAware;
 
@@ -17,14 +18,22 @@ import java.util.Map;
 @Namespace("/employee")
 @Results({
         @Result(name = EmployeeAction.REDIRECT_LIST, type = "redirectAction", params = {"actionName", "list"}),
+        @Result(name = ActionSupport.INPUT, location = "input.jsp")
 })
-@InterceptorRef(value = "paramsPrepareParamsStack", params = {"prepare.alwaysInvokePrepare", "false"})
+@InterceptorRef(
+        value = "paramsPrepareParamsStack",
+        params = {
+                "prepare.alwaysInvokePrepare", "false",
+                "validation.includeMethods", "addSubmit, editSubmit"
+        }
+)
 @Data
-public class EmployeeAction implements RequestAware, Preparable, ModelDriven<Employee> {
+@ToString(of = {"id", "employee"})
+public class EmployeeAction extends ActionSupport implements RequestAware, Preparable, ModelDriven<Employee> {
+    private static final long serialVersionUID = 1L;
     public static final String REDIRECT_LIST = "redirectList";
     private EmployeeDao employeeDao = new EmployeeDao();
     private Map<String, Object> requestMap;
-
 
     private Employee employee;
 
@@ -39,7 +48,7 @@ public class EmployeeAction implements RequestAware, Preparable, ModelDriven<Emp
         this.employee = new Employee();
     }
 
-    @Action(value = "addSubmit")
+    @Action(value = "addSubmit", results = @Result(name = ActionSupport.INPUT, location = "add.jsp"))
     public String addSubmit() {
         this.employeeDao.insert(this.employee);
         return REDIRECT_LIST;
@@ -58,7 +67,7 @@ public class EmployeeAction implements RequestAware, Preparable, ModelDriven<Emp
         this.employee = new Employee();
     }
 
-    @Action(value = "editSubmit")
+    @Action(value = "editSubmit", results = @Result(name = ActionSupport.INPUT, location = "edit.jsp"))
     public String editSubmit() {
         this.employeeDao.update(this.employee);
         return REDIRECT_LIST;

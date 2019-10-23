@@ -21,7 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <struts2.version>2.5.14.1</struts2.version>
+        <struts2.version>2.5.13</struts2.version>
     </properties>
 
     <dependencies>
@@ -67,6 +67,16 @@
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
         </dependency>
     </dependencies>
 

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Edit</title>
+    <title>编辑</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
@@ -66,25 +67,55 @@
 
     <div class="starter-template">
         <s:form action="editSubmit" method="post" role="form" theme="simple">
-            <legend>Edit</legend>
+            <legend>编辑</legend>
             <s:hidden name="id"/>
-            <div class="form-group">
-                <label for="first-name">First Name</label>
-                <s:textfield type="text" class="form-control" name="firstName" id="first-name" placeholder="Input First Name"/>
+            <div class="form-group${empty fieldErrors.firstName ? '' : ' has-error'}">
+                <label for="first-name">名</label>
+                <s:textfield type="text" class="form-control" name="firstName" id="first-name" placeholder="输入名"/>
+                <c:if test="${not empty fieldErrors.firstName}">
+                    <span class="help-block">${fieldErrors.firstName[0]}</span>
+                </c:if>
             </div>
 
-            <div class="form-group">
-                <label for="last-name">Last Name</label>
-                <s:textfield type="text" class="form-control" name="lastName" id="last-name" placeholder="Input Last Name"/>
+            <div class="form-group${empty fieldErrors.lastName ? '' : ' has-error'}">
+                <label for="last-name">姓</label>
+                <s:textfield type="text" class="form-control" name="lastName" id="last-name" placeholder="输入姓"/>
+                <c:if test="${not empty fieldErrors.lastName}">
+                    <span class="help-block">${fieldErrors.lastName[0]}</span>
+                </c:if>
             </div>
 
-            <div class="form-group">
+            <div class="form-group${empty fieldErrors.age ? '' : ' has-error'}">
+                <label for="age">年龄</label>
+                <s:textfield type="number" class="form-control" name="age" id="age" placeholder="输入年龄"/>
+                <c:if test="${not empty fieldErrors.age}">
+                    <span class="help-block">${fieldErrors.age[0]}</span>
+                </c:if>
+            </div>
+
+            <div class="form-group${empty fieldErrors.birthday ? '' : ' has-error'}">
+                <label for="email">生日</label>
+                <s:textfield type="text" class="form-control" name="birthday" id="birthday" placeholder="输入生日">
+                    <s:param name="value">
+                        <s:date name="birthday" format="yyyy-MM-dd HH:mm:ss"/>
+                    </s:param>
+                </s:textfield>
+                <c:if test="${not empty fieldErrors.birthday}">
+                    <span class="help-block">${fieldErrors.birthday[0]}</span>
+                </c:if>
+            </div>
+
+            <div class="form-group${empty fieldErrors.email ? '' : ' has-error'}">
                 <label for="email">Email</label>
-                <s:textfield type="email" class="form-control" name="email" id="email" placeholder="Input Email"/>
+                <s:textfield type="email" class="form-control" name="email" id="email" placeholder="输入Email"/>
+                <c:if test="${not empty fieldErrors.email}">
+                    <span class="help-block">${fieldErrors.email[0]}</span>
+                </c:if>
             </div>
 
             <s:submit class="btn btn-primary" type="button">提交</s:submit>
         </s:form>
+        <s:debug/>
     </div>
 </div><!-- /.container -->
 

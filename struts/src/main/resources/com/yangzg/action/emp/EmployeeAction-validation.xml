@@ -1,0 +1,62 @@
+<!DOCTYPE validators PUBLIC "-//Apache Struts//XWork Validator 1.0.2//EN" "http://struts.apache.org/dtds/xwork-validator-1.0.2.dtd">
+<validators>
+    <field name="firstName">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>名必填</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">5</param>
+            <message>名的长度必须介于${minLength}到${maxLength}之间</message>
+        </field-validator>
+    </field>
+
+    <field name="lastName">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>姓必填</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">1</param>
+            <param name="maxLength">10</param>
+            <message>姓的长度必须介于${minLength}到${maxLength}之间</message>
+        </field-validator>
+    </field>
+
+    <field name="age">
+        <field-validator type="required">
+            <message>年龄必填</message>
+        </field-validator>
+        <field-validator type="int">
+            <param name="min">13</param>
+            <param name="max">19</param>
+            <message>年龄必须介于${min}-${max}之间</message>
+        </field-validator>
+    </field>
+
+    <field name="birthday">
+        <field-validator type="required">
+            <message>日期必填</message>
+        </field-validator>
+        <field-validator type="date">
+            <message>日期格式非法</message>
+        </field-validator>
+    </field>
+
+    <field name="email">
+        <field-validator type="requiredstring">
+            <param name="trim">true</param>
+            <message>Email必填</message>
+        </field-validator>
+        <field-validator type="email">
+            <param name="trim">true</param>
+            <message>Email格式错误</message>
+        </field-validator>
+        <field-validator type="stringlength">
+            <param name="minLength">5</param>
+            <param name="maxLength">20</param>
+            <message>Email的长度必须介于${minLength}到${maxLength}之间</message>
+        </field-validator>
+    </field>
+</validators>
