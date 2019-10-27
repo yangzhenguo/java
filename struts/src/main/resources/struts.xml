@@ -6,6 +6,7 @@
     <constant name="struts.devMode" value="true" />
     <constant name="struts.ognl.allowStaticMethodAccess" value="true"/>
     <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.custom.i18n.resources" value="i18n.languages"/>
 
     <!--
         <bean type="org.apache.struts2.dispatcher.StaticContentLoader" class="org.apache.struts2.dispatcher.DefaultStaticContentLoader" name="myLoader" />

@@ -1,5 +1,6 @@
 package com.yangzg.conversion;
 
+import com.opensymphony.xwork2.XWorkException;
 import org.apache.struts2.util.StrutsTypeConverter;
 
 import java.time.LocalDateTime;
@@ -22,12 +23,11 @@ public class DateConverter extends StrutsTypeConverter {
                     return Date.from(LocalDateTime.from(DATE_TIME_FORMATTER.parse(strings[0])).atZone(ZoneId.systemDefault()).toInstant());
                 } catch (Exception e) {
                     e.printStackTrace();
-                    return strings[0];
+                    throw new XWorkException();
                 }
             }
-            return "";
         }
-        return strings[0];
+        throw new XWorkException();
     }
 
     @Override

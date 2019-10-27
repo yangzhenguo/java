@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yangzg.hibernate.model1">
+    <class name="City" table="CITY">
+        <id name="id" column="ID" type="long">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME" type="string"/>
+        <component class="com.yangzg.hibernate.model1.embeddable.GPS" name="coordinates">
+            <parent name="city"/>
+            <property name="latitude" column="LATITUDE"/>
+            <property name="longitude" column="LONGITUDE"/>
+        </component>
+    </class>
+</hibernate-mapping>

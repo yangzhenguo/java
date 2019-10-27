@@ -87,7 +87,7 @@
 
             <div class="form-group${empty fieldErrors.age ? '' : ' has-error'}">
                 <label for="age">年龄</label>
-                <s:textfield type="number" class="form-control" name="age" id="age" placeholder="输入年龄"/>
+                <s:textfield type="text" class="form-control" name="age" id="age" placeholder="输入年龄"/>
                 <c:if test="${not empty fieldErrors.age}">
                     <span class="help-block">${fieldErrors.age[0]}</span>
                 </c:if>
@@ -111,6 +111,7 @@
 
             <s:submit class="btn btn-primary" type="button">提交</s:submit>
         </s:form>
+        <s:debug/>
     </div>
 </div><!-- /.container -->
 

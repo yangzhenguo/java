@@ -19,6 +19,8 @@
         <module>myframework</module>
         <module>perm</module>
         <module>shop</module>
+        <module>struts</module>
+        <module>hibernate</module>
     </modules>
 
     <properties>
