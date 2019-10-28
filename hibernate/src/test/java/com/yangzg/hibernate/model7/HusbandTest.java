@@ -1,4 +1,4 @@
-package com.yangzg.hibernate.model2;
+package com.yangzg.hibernate.model7;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -7,12 +7,10 @@ import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.junit.Test;
 
-import java.util.List;
-
 /**
  * Created by Sam on 2019/10/24.
  */
-public class OrderTest {
+public class HusbandTest {
     private static final SessionFactory SESSION_FACTORY = new MetadataSources(new StandardServiceRegistryBuilder().configure().build()).buildMetadata().buildSessionFactory();
 
     @Test
@@ -20,10 +18,11 @@ public class OrderTest {
         try (Session session = SESSION_FACTORY.openSession()) {
             final Transaction tx = session.beginTransaction();
             try {
-                final Customer customer = new Customer("杨");
-                session.save(customer);
-                session.save(new Order("一袋子苹果", customer));
-                session.save(new Order("一箱啤酒", customer));
+                final Wife wife = new Wife("lily");
+                final Husband husband = new Husband("tom", wife);
+                wife.setHusband(husband);
+                session.save(wife);
+                session.save(husband);
                 tx.commit();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -37,8 +36,9 @@ public class OrderTest {
         try (Session session = SESSION_FACTORY.openSession()) {
             final Transaction tx = session.beginTransaction();
             try {
-                final List<Order> orders = session.createQuery("from Order", Order.class).list();
-                System.out.println(orders);
+                final Husband husband = session.load(Husband.class, 68);
+                System.out.println(husband.getName());
+                System.out.println(husband.getWife().getName());
                 tx.commit();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -52,9 +52,10 @@ public class OrderTest {
         try (Session session = SESSION_FACTORY.openSession()) {
             final Transaction tx = session.beginTransaction();
             try {
-                final Order order = session.load(Order.class, 14);
-                System.out.println(order.getName());
-                System.out.println(order.getCustomer().getName());
+                final Wife wife = session.load(Wife.class, 67);
+                System.out.println(wife.getName());
+                System.out.println(wife.getHusband().getName());
+                tx.commit();
             } catch (Exception e) {
                 e.printStackTrace();
                 tx.rollback();

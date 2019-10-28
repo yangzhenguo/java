@@ -16,22 +16,30 @@
         <property name="format_sql">true</property>
 
         <!--
-        <mapping resource="com/yangzg/hibernmodel1odel/News.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/City.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Order.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Customer.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Classroom.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Student.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Husband.hbm.xml"/>
-        <mapping resource="com/yangzg/hibernmodel1odel/Wife.hbm.xml"/>
-        <mapping clacom.yangzg.hibernate.model11odel.Husband"/>
-        <mapping clacom.yangzg.hibernate.model11odel.Wife"/>
+        <mapping resource="com/yangzg/hibernate/model1/News.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/City.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Order.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Customer.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Classroom.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Student.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Husband.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model1/Wife.hbm.xml"/>
+        <mapping clacom.yangzg.hibernate.model1.Husband"/>
+        <mapping clacom.yangzg.hibernate.model1.Wife"/>
         <mapping class="com.yangzg.hibernate.model1.Person"/>
         <mapping class="com.yangzg.hibernate.model1.Phone"/>
         <mapping resource="com/yangzg/hibernate/model2/Order.hbm.xml"/>
         <mapping resource="com/yangzg/hibernate/model2/Customer.hbm.xml"/>
-        -->
         <mapping resource="com/yangzg/hibernate/model3/Order.hbm.xml"/>
         <mapping resource="com/yangzg/hibernate/model3/Customer.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model4/Order.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model4/Customer.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model5/Wife.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model5/Husband.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model6/Wife.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model6/Husband.hbm.xml"/>
+        -->
+        <mapping resource="com/yangzg/hibernate/model7/Wife.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model7/Husband.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

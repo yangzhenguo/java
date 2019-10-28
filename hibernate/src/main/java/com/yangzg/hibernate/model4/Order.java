@@ -1,4 +1,4 @@
-package com.yangzg.hibernate.model3;
+package com.yangzg.hibernate.model4;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +15,5 @@ public class Order {
     private Integer id;
     @NonNull
     private String name;
+    private Customer customer;
 }
