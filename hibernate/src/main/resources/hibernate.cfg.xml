@@ -38,8 +38,12 @@
         <mapping resource="com/yangzg/hibernate/model5/Husband.hbm.xml"/>
         <mapping resource="com/yangzg/hibernate/model6/Wife.hbm.xml"/>
         <mapping resource="com/yangzg/hibernate/model6/Husband.hbm.xml"/>
-        -->
         <mapping resource="com/yangzg/hibernate/model7/Wife.hbm.xml"/>
         <mapping resource="com/yangzg/hibernate/model7/Husband.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model8/Student.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model8/Teacher.hbm.xml"/>
+        -->
+        <mapping resource="com/yangzg/hibernate/model9/Student.hbm.xml"/>
+        <mapping resource="com/yangzg/hibernate/model9/Teacher.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
