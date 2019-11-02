@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:u="http://www.springframework.org/schema/util"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+       http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <beans profile="prod">
+    </beans>
+
+    <beans profile="dev">
+
+    </beans>
+
+    <bean class="com.yangzg.model1.HelloWorld">
+        <constructor-arg name="name" value="lkjk"/>
+    </bean>
+    <bean class="com.yangzg.model1.HelloWorld">
+        <property name="name">
+            <null/>
+        </property>
+    </bean>
+
+    <bean class="com.yangzg.model1.Person">
+        <constructor-arg name="age" value="123"/>
+        <constructor-arg name="name" value="yzg"/>
+        <constructor-arg>
+            <bean class="com.yangzg.model1.Car"/>
+        </constructor-arg>
+        <property name="car.brand">
+            <value><![CDATA[<<Audi>>]]></value>
+        </property>
+        <property name="car.price" value="45223"/>
+    </bean>
+
+    <bean id="timezone" class="java.util.TimeZone" factory-method="getTimeZone" c:ID="GMT"/>
+
+    <bean id="calendar" class="java.util.Calendar" factory-method="getInstance" c:zone-ref="timezone"/>
+    
+    <u:properties id="properties">
+        <prop key="url"><![CDATA[jdbc:postgresql:hbn?characterEncoding=utf8&useUnicode=true]]></prop>
+        <prop key="username">progres</prop>
+        <prop key="password">progres</prop>
+    </u:properties>
+
+    <bean id="dataSource1" class="org.apache.commons.dbcp.BasicDataSourceFactory" destroy-method="close" factory-method="createDataSource" c:properties-ref="properties"/>
+
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource"
+          p:url="jdbc:postgresql:hbn?characterEncoding=utf8&amp;useUnicode=true"
+          p:username="progres"
+          p:password="password" destroy-method="close"/>
+
+    <bean id="dataSource3" class="org.apache.commons.dbcp.BasicDataSourceFactory" factory-method="createDataSource" destroy-method="close">
+        <constructor-arg>
+            <props>
+                <prop key="url"><![CDATA[jdbc:postgresql:hbn?characterEncoding=utf8&useUnicode=true]]></prop>
+                <prop key="username">progres</prop>
+                <prop key="password">progres</prop>
+            </props>
+        </constructor-arg>
+    </bean>
+
+    <bean id="dataSourceAbstract" class="org.apache.commons.dbcp.BasicDataSource"
+          p:url="jdbc:postgresql:hbn?characterEncoding=utf8&amp;useUnicode=true"
+          destroy-method="close"
+          abstract="true"/>
+
+    <bean id="dataSource4" parent="dataSourceAbstract"
+          p:username="progres"
+          p:password="progres"/>
+
+    <bean class="java.lang.String" c:_0="#{'' ?: 'abc: ' + T(String).format('%s, Hello World!', 'Sam')}" id="helloWorld" depends-on="dataSource1" scope="singleton"/>
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="properties">
+            <value>
+                url=jdbc:postgresql:hbn?characterEncoding=utf8&amp;useUnicode=true
+                username=progres
+                password=progres
+            </value>
+        </property>
+    </bean>
+
+    <bean id="person1" class="com.yangzg.model1.PersonFactoryBean" p:name="yangzg" p:age="12"/>
+
+    <context:component-scan base-package="com.**.service1" resource-pattern="service1/*.class" use-default-filters="false">
+        <context:exclude-filter type="assignable" expression="java.lang.Object"/>
+    </context:component-scan>
+</beans>

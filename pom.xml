@@ -21,6 +21,7 @@
         <module>shop</module>
         <module>struts</module>
         <module>hibernate</module>
+        <module>spring</module>
     </modules>
 
     <properties>
