@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yangzg.model">
+    <class name="com.yangzg.model.Employee" table="PERSON">
+        <id name="id" type="int" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME"/>
+        <property name="createTime" type="timestamp" column="CREATE_TIME"/>
+        <many-to-one name="department" class="Department" column="DEPARTMENT_ID"/>
+    </class>
+</hibernate-mapping>

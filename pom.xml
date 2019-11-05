@@ -22,6 +22,7 @@
         <module>struts</module>
         <module>hibernate</module>
         <module>spring</module>
+        <module>ssh</module>
     </modules>
 
     <properties>
