@@ -22,7 +22,7 @@
     <!-- Custom styles for this template -->
     <style>
         body {
-            padding-top: 50px;
+            padding-top: 60px;
         }
     </style>
 

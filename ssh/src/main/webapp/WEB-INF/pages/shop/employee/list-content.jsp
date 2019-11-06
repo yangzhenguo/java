@@ -12,6 +12,9 @@
     <title>Title</title>
 </head>
 <body>
+<p>
+    <s:a namespace="/shop/employee" class="btn btn-primary" action="create">新建</s:a>
+</p>
 <table class="table table-bordered table-hover table-striped">
     <thead>
     <tr>
@@ -29,7 +32,16 @@
             <td>${name}</td>
             <td>${createTime}</td>
             <td>${department.name}</td>
-            <td></td>
+            <td class="text-center">
+                <s:a class="btn btn-default btn-xs" namespace="/shop/employee" action="edit">
+                    <s:param name="id" value="id"/>
+                    修改
+                </s:a>
+                <s:a class="btn btn-default btn-xs" namespace="/shop/employee" action="delete" style="margin-left: 20px;">
+                    <s:param name="id" value="id"/>
+                    删除
+                </s:a>
+            </td>
         </tr>
     </s:iterator>
     </tbody>
