@@ -23,6 +23,7 @@
         <module>hibernate</module>
         <module>spring</module>
         <module>ssh</module>
+        <module>springmvc-v2</module>
     </modules>
 
     <properties>
