@@ -24,6 +24,7 @@
         <module>spring</module>
         <module>ssh</module>
         <module>springmvc-v2</module>
+        <module>springmvc-3</module>
     </modules>
 
     <properties>
