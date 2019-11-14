@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="teacher" class="com.yangzg.beans3.Teacher"/>
+    <bean id="student" class="com.yangzg.beans3.Student"/>
+
+    <bean id="factories" class="com.yangzg.beans3.Factories" autowire="byType">
+        <lookup-method name="getUser" bean="student"/>
+    </bean>
+
+    <bean id="timeZone" class="java.util.TimeZone" factory-method="getDefault"/>
+
+    <bean id="timerFactory" class="java.util.Calendar">
+        <lookup-method name="getTimeZone" bean="timeZone"/>
+    </bean>
+</beans>

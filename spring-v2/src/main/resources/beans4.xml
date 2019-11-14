@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="baseProperties" abstract="true" class="com.yangzg.beans.MergeProperties">
+        <property name="properties">
+            <props value-type="string">
+                <prop key="name">Sam</prop>
+                <prop key="age">123</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="newProperties" parent="baseProperties" class="com.yangzg.beans.MergeProperties">
+        <property name="properties">
+            <props merge="true" value-type="string">
+                <prop key="name">Yangzg</prop>
+            </props>
+        </property>
+    </bean>
+
+    <bean id="basePrices" class="com.yangzg.beans.ShopPrices">
+        <property name="prices">
+            <map key-type="java.lang.String" value-type="java.lang.String">
+                <description>
+                    Goods Prices
+                </description>
+                <entry key="Apple" value="23.52"/>
+                <entry key="Samsung" value="12.53"/>
+                <entry key="Mi" value="1.2"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="beijingShop" parent="basePrices">
+        <property name="prices">
+            <map merge="true">
+                <entry key="Mi" value="1"/>
+                <entry key="Apple" value="29.99"/>
+            </map>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="helloWorld" name="Hello; World" class="com.yangzg.beans.HelloWorld" c:salary="12" init-method="init" p:name="Sam Young"/>
+
+    <bean name="calendar" class="java.util.Calendar" factory-method="getInstance" c:zone="GMT+0" p:timeZone="GMT+5"/>
+
+    <alias name="calendar" alias="calendar2"/>
+</beans>
