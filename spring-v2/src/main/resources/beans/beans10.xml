@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--
+    <bean id="employee" class="com.yangzg.beans3.Employee" p:no="#{T(java.lang.Math).random()}" scope="prototype"/>
+    <bean id="company" class="com.yangzg.beans3.Company">
+        <lookup-method name="getEmployee" bean="employee"/>
+    </bean>
+    -->
+    <context:component-scan base-package="com.yangzg.beans3"/>
+</beans>

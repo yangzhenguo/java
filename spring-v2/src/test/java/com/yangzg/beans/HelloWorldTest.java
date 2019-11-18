@@ -15,7 +15,7 @@ import java.util.Calendar;
 public class HelloWorldTest {
     @Test
     public void hello() throws Exception {
-        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml")) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans/beans.xml")) {
             final HelloWorld helloWorld = applicationContext.getBean("helloWorld", HelloWorld.class);
 
             System.out.println(helloWorld.hello());
@@ -33,7 +33,7 @@ public class HelloWorldTest {
     @Test
     public void test1() {
         try (GenericApplicationContext applicationContext = new GenericApplicationContext()) {
-            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans.xml");
+            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans/beans.xml");
             applicationContext.refresh();
             System.out.println(applicationContext.isActive());
 
@@ -44,7 +44,7 @@ public class HelloWorldTest {
 
     @Test
     public void test2() {
-        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans.xml")) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans/beans.xml")) {
             System.out.println(Arrays.toString(applicationContext.getBeanDefinitionNames()));
 //            applicationContext.refresh();
             final HelloWorld helloWorld = applicationContext.getBean("helloWorld", HelloWorld.class);
@@ -58,7 +58,7 @@ public class HelloWorldTest {
     @Test
     public void test3() {
         try (GenericApplicationContext applicationContext = new GenericApplicationContext()) {
-            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans.xml");
+            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans/beans.xml");
             applicationContext.refresh();
             System.out.println(Arrays.toString(applicationContext.getBeanDefinitionNames()));
             final Calendar calender = applicationContext.getBean("calendar", Calendar.class);
@@ -73,7 +73,7 @@ public class HelloWorldTest {
     @Test
     public void test4() {
         try (GenericApplicationContext applicationContext = new GenericApplicationContext()) {
-            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans.xml");
+            new XmlBeanDefinitionReader(applicationContext).loadBeanDefinitions("beans/beans.xml");
             applicationContext.refresh();
             System.out.println(applicationContext.getBean("helloWorld", HelloWorld.class));
         }

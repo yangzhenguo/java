@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class MergePropertiesTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans4.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans4.xml")) {
             final MergeProperties mergeProperties = context.getBean("newProperties", MergeProperties.class);
             System.out.println(mergeProperties);
         }
@@ -17,7 +17,7 @@ public class MergePropertiesTest {
 
     @Test
     public void test2() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans4.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans4.xml")) {
             final ShopPrices beijingShop = context.getBean("beijingShop", ShopPrices.class);
             System.out.println(beijingShop);
         }

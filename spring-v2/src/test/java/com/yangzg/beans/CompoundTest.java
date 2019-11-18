@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class CompoundTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans5.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans5.xml")) {
             final Classroom classroom = context.getBean("classroom", Classroom.class);
             System.out.println(classroom);
         }

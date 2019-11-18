@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AutowireTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans7.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans7.xml")) {
             final Teacher teacher = context.getBean("teacher", Teacher.class);
             System.out.println(teacher);
 

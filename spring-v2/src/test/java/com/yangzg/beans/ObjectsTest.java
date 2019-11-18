@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ObjectsTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans3.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans3.xml")) {
             final Objects objects = context.getBean("objects", Objects.class);
             System.out.println(objects);
         }

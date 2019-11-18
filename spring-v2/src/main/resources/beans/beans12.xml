@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd" default-merge="true">
+    <bean id="template" abstract="true">
+        <property name="name" value="${idea.test.cyclic.buffer.size}"/>
+        <property name="age" value="12"/>
+    </bean>
+
+    <bean id="bean" class="com.yangzg.beans3.Template" parent="template">
+        <property name="note">
+            <value>${myfile}</value>
+        </property>
+    </bean>
+
+    <!--<import resource="${idea.test.cyclic.buffer.size}/beans2.xml"/>-->
+
+    <context:property-placeholder location="${idea.test.cyclic.buffer.size}/views.propertiesa" ignore-resource-not-found="true"/>
+</beans>

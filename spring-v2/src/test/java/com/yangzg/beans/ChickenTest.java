@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class ChickenTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("chicken-egg.xml")) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans/chicken-egg.xml")) {
             final Chicken chicken = applicationContext.getBean("chicken", Chicken.class);
             System.out.println(chicken);
         }

@@ -10,7 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class DataSourceTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans2.xml")) {
+        try (ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("beans/beans2.xml")) {
             final BasicDataSource dataSource1 = applicationContext.getBean("dataSource", BasicDataSource.class);
             final BasicDataSource dataSource2 = applicationContext.getBean("dataSource2", BasicDataSource.class);
             System.out.println(dataSource1);
@@ -20,10 +20,10 @@ public class DataSourceTest {
 
     @Test
     public void test2() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans2.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans2.xml")) {
             final BasicDataSource dataSource3 = context.getBean("dataSource3", BasicDataSource.class);
             System.out.println(dataSource3);
-            System.out.println(dataSource3.getUrl());
+            System.out.println(dataSource3.getPassword());
         }
     }
 }

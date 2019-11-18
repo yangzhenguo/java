@@ -9,7 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class DependsOnTest {
     @Test
     public void test1() {
-        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans6.xml")) {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/beans6.xml")) {
             final Student student = context.getBean(Student.class);
             System.out.println(student);
         }

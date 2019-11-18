@@ -66,7 +66,7 @@ public class HelloWorld implements InitializingBean, ResourceLoaderAware, Applic
     public void setResourceLoader(ResourceLoader resourceLoader) {
         System.out.println("setResourceLoader");
         this.resourceLoader = resourceLoader;
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.resourceLoader.getResource("beans.xml").getInputStream()))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.resourceLoader.getResource("beans/beans.xml").getInputStream()))) {
             bufferedReader.lines().forEach(System.out::println);
         } catch (IOException e) {
             e.printStackTrace();

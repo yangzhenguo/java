@@ -35,7 +35,7 @@
                 driverClassName=com.mysql.jdbc.Driver
                 url=jdbc:mysql:///db
                 username=sam
-                password=sam
+                password=${username}
             </value>
         </property>
     </bean>
