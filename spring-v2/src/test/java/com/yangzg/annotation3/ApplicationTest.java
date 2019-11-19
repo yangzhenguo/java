@@ -25,6 +25,10 @@ public class ApplicationTest {
             System.out.println(Arrays.toString(context.getBeanDefinitionNames()));
             final UserController userController = context.getBean(UserController.class);
             userController.execute();
+
+            context.getBean("object1", Object.class);
+            context.getBean("object2", Object.class);
+
         }
     }
 }
