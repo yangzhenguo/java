@@ -7,6 +7,9 @@ import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.spel.standard.SpelExpressionParser;
 
+import java.util.Arrays;
+import java.util.Date;
+
 /**
  * Created by Sam on 2019/11/15.
  */
@@ -48,4 +51,28 @@ public class ELTest {
             System.out.println(str);
         }
     }
+
+    @Test
+    public void test5() {
+        try (ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("beans/el.xml")) {
+            final SpelExpressionParser parser = new SpelExpressionParser();
+            final Expression expression = parser.parseExpression("'Hello World'.concat('!')");
+            final String value = expression.getValue(String.class);
+            System.out.println(value);
+
+            final byte[] bytes = parser.parseExpression("'Hello World'.bytes").getValue(byte[].class);
+            System.out.println(Arrays.toString(bytes));
+
+            System.out.println(parser.parseExpression("'abc'.bytes.length").getValue(int.class));
+
+            System.out.println(parser.parseExpression("new String('abcde').length()").getValue(int.class));
+
+            System.out.println(parser.parseExpression("time > 0").getValue(new Date(), boolean.class));
+
+            System.out.println(parser.parseExpression("new java.util.Date(time + 1000 * 60 * 60 * 12)").getValue(new Date(), Date.class));
+
+            System.out.println(context.getBean("str", String.class));
+        }
+    }
+
 }

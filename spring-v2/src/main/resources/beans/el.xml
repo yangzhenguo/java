@@ -13,9 +13,12 @@
        http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/lang
        http://www.springframework.org/schema/lang/spring-lang.xsd">
+    <!--
     <bean id="str1" class="java.lang.String" c:_0="#{systemProperties['java.runtime.name']}"/>
     <context:annotation-config/>
     <bean class="com.yangzg.beans3.MyBeanFactoryPostProcessor"/>
-    <context:property-placeholder location="views.properties" null-value="abc" system-properties-mode="ENVIRONMENT"/>
-    <bean id="str" class="java.lang.String" c:_0="${NAME}"/>
+    <context:property-placeholder location="beans/views.properties" null-value="abc" system-properties-mode="ENVIRONMENT"/>
+    <bean id="str" class="java.lang.String" c:_0="${NAME: yzg}"/>
+    -->
+    <bean id="str" class="java.lang.String" c:_0="#{systemProperties['user.country']}"/>
 </beans>
