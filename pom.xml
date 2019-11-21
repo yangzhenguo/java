@@ -27,6 +27,7 @@
         <module>springmvc-3</module>
         <module>spring-v2</module>
         <module>aop</module>
+        <module>springmvc-v4</module>
     </modules>
 
     <properties>
