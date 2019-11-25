@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -20,6 +21,22 @@ import java.util.Map;
 @SessionAttributes({"name", "currentUser"})
 @RequestMapping("/")
 public class IndexController {
+    private Map<Integer, Student> DB = new HashMap<Integer, Student>(){
+        private static final long serialVersionUID = 1L;
+        {
+            put(1, new Student("yangzg", "123456", "yangzg@test.com", 1, null));
+            put(2, new Student("yzg", "654321", "yzg@test.com", 2, null));
+        }
+    };
+
+    @ModelAttribute("student")
+    private Student getStudent(@PathVariable(value = "id", required = false) Integer idd, @RequestParam(required = false, defaultValue = "0") int id) {
+        if (null != idd && idd > 0) {
+            return DB.get(idd);
+        }
+        return null;
+    }
+
     @RequestMapping("/reader")
     public void reader(Reader reader) throws IOException {
         char[] buffer = new char[1 << 10];
@@ -73,8 +90,15 @@ public class IndexController {
     }
 
     @RequestMapping("/test6")
-    public String test6(@SessionAttribute("currentUser") Student currentUser, Writer writer) throws IOException {
+    public String test6(@SessionAttribute(value = "currentUser", required = false) Student currentUser, Writer writer) throws IOException {
 
         return "test6";
+    }
+
+    @RequestMapping("/test7/{id}")
+    public String test7(@PathVariable("id") Integer id, @ModelAttribute("student") Student student) {
+        System.out.println(id);
+        System.out.println(student);
+        return "test7";
     }
 }

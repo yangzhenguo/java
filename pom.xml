@@ -28,6 +28,7 @@
         <module>spring-v2</module>
         <module>aop</module>
         <module>springmvc-v4</module>
+        <module>springmvc-crud</module>
     </modules>
 
     <properties>
