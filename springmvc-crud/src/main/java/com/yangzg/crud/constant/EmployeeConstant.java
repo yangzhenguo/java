@@ -28,4 +28,27 @@ public class EmployeeConstant {
             return Arrays.stream(STATE.values()).filter(state -> state.code == code).findFirst().orElse(UNKNOWN);
         }
     }
+
+    public enum SEX {
+        MALE(1, "male"),
+        FEMALE(0, "female"),
+        UNKNOWN(-1, "unknown");
+
+        private Integer code;
+        private String label;
+
+        SEX(Integer code, String label) {
+            this.code = code;
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public static SEX which(final Integer code) {
+            if (code == null) return UNKNOWN;
+            return Arrays.stream(SEX.values()).filter(sex -> sex.code == code).findFirst().orElse(UNKNOWN);
+        }
+    }
 }

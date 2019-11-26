@@ -79,7 +79,10 @@
                     <td>${emp.name}</td>
                     <td>${emp.email}</td>
                     <td>${emp.telephone}</td>
-                    <td>${emp.sex}</td>
+                    <td>
+                        <s:eval var="sex" expression="T(com.yangzg.crud.constant.EmployeeConstant.SEX).which(emp.sex).label"/>
+                        <fmt:message key="${sex}"/>
+                    </td>
                     <td>
                         <s:eval var="state" expression="T(com.yangzg.crud.constant.EmployeeConstant.STATE).which(emp.state).label"/>
                         <fmt:message key="${state}"/>

@@ -92,7 +92,10 @@
         <div class="form-group">
             <label class="col-sm-2 control-label">Sex</label>
             <div class="col-sm-10">
-                <span class="form-control">${employee.sex}</span>
+                <span class="form-control">
+                    <s:eval var="sex" expression="T(com.yangzg.crud.constant.EmployeeConstant.SEX).which(employee.sex).label"/>
+                    <fmt:message key="${sex}"/>
+                </span>
             </div>
         </div>
 
