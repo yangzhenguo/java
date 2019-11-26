@@ -6,6 +6,7 @@ import com.yangzg.crud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,11 +35,16 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional
     public void save(Employee employee) {
-        employee.setUid(UUID.randomUUID().toString());
-        this.employeeDao.insert(employee);
+        if (StringUtils.isEmpty(employee.getUid())) {
+            employee.setUid(UUID.randomUUID().toString());
+            this.employeeDao.insert(employee);
+        } else {
+            this.employeeDao.update(employee);
+        }
     }
 
     @Override
+    @Transactional
     public void removeByUid(String uid) {
         this.employeeDao.deleteByUid(uid);
     }

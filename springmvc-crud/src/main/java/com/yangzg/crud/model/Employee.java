@@ -15,6 +15,6 @@ public class Employee {
     private String telephone;
 //    private Date birthday;
     private String sex;
-    private Integer state;
+    private Boolean state;
     private String code;
 }

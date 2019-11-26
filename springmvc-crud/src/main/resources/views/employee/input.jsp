@@ -56,6 +56,10 @@
 <div class="container">
     <form:form action="/employee" method="post" cssClass="form-horizontal" modelAttribute="employee">
         <legend>Create</legend>
+        <form:input type="hidden" path="uid"/>
+        <c:if test="${not empty employee.uid}">
+            <input type="hidden" name="_method" value="PUT" />
+        </c:if>
         <div class="form-group">
             <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-10">
@@ -85,16 +89,24 @@
         </div>
 
         <div class="form-group">
-            <label for="sex" class="col-sm-2 control-label">Sex</label>
+            <label class="col-sm-2 control-label">Sex</label>
             <div class="col-sm-10">
-                <form:input path="sex" type="text" class="form-control" id="sex" placeholder="sex"/>
+                <s:eval expression="{0: '女', 1: '男'}" var="sexes"/>
+                <c:forEach items="${sexes}" var="sex">
+                    <label class="radio-inline">
+                        <form:radiobutton path="sex" value="${sex.key}"/>${sex.value}
+                    </label>
+                </c:forEach>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="state" class="col-sm-2 control-label">State</label>
+            <label class="col-sm-2 control-label">State</label>
             <div class="col-sm-10">
-                <form:input path="state" type="text" class="form-control" id="state" placeholder="state"/>
+                <%--<form:input path="state" type="text" class="form-control" id="state" placeholder="state"/>--%>
+                <label class="checkbox-inline">
+                    <form:checkbox path="state" />启用
+                </label>
             </div>
         </div>
 

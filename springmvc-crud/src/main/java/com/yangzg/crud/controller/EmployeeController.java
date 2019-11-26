@@ -8,7 +8,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -32,23 +31,34 @@ public class EmployeeController {
         return "redirect:/employee/list";
     }
 
-    @PostMapping
-    public String inputSubmit(Employee employee) {
-        System.out.println(employee);
-        this.employeeService.save(employee);
-        return "redirect:/employee/list";
-    }
-
     @GetMapping("/input")
     public String input(Map<String, Object> map) {
         map.put("employee", new Employee());
         return "employee/input";
     }
 
+    @PostMapping
+    public String createSubmit(Employee employee) {
+        this.employeeService.save(employee);
+        return "redirect:/employee/list";
+    }
+
     @GetMapping("/info/{uid}")
     public String info(@PathVariable String uid, Map<String, Object> map) {
         map.put("employee", this.employeeService.getByUid(uid).orElseThrow(() -> new RuntimeException("not exists")));
         return "employee/info";
+    }
+
+    @GetMapping("/edit/{uid}")
+    public String edit(@PathVariable String uid, Map<String, Object> map) {
+        map.put("employee", this.employeeService.getByUid(uid).orElseThrow(() -> new RuntimeException("not exists")));
+        return "employee/input";
+    }
+
+    @PutMapping
+    public String editSubmit(Employee employee) {
+        this.employeeService.save(employee);
+        return "redirect:/employee/list";
     }
 
     @GetMapping("/list")
@@ -58,8 +68,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{uid}")
-    public void delete(@PathVariable String uid, Writer writer) throws IOException {
+    public String delete(@PathVariable String uid) throws IOException {
         this.employeeService.removeByUid(uid);
-        writer.write("1");
+        return "redirect:/employee/list";
     }
 }

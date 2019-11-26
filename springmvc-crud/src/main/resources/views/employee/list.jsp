@@ -87,13 +87,20 @@
                     <td>
                         <s:url var="infoUrl" value="/employee/info/${emp.uid}"/>
                         <a href="${infoUrl}">查看</a>
-                        <a href="javascript:void(0);" class="delete" data-hid="${emp.uid}">删除</a>
+                        <s:url var="editUrl" value="/employee/edit/${emp.uid}"/>
+                        <a href="${editUrl}">编辑</a>
+                        <s:url var="deleteUrl" value="/employee/${emp.uid}"/>
+                        <a href="${deleteUrl}" class="delete">删除</a>
                     </td>
                 </tr>
             </c:forEach>
             </tbody>
         </table>
     </div>
+
+    <form action="" method="post">
+        <input type="hidden" name="_method" value="DELETE">
+    </form>
 </div><!-- /.container -->
 
 <!-- Bootstrap core JavaScript

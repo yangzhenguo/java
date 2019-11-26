@@ -41,4 +41,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void deleteByUid(String uid) {
         this.namedParameterJdbcTemplate.update(String.format("delete from %s where uid = :uid", "employee"), new MapSqlParameterSource("uid", uid));
     }
+
+    @Override
+    public void update(Employee employee) {
+        this.namedParameterJdbcTemplate.update(String.format("update %s set uid = :uid, username = :username, name = :name, email = :email, telephone = :telephone, sex = :sex, state = :state where uid = :uid", "employee"), new BeanPropertySqlParameterSource(employee));
+    }
 }

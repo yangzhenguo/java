@@ -7,24 +7,25 @@ import java.util.Arrays;
  */
 public class EmployeeConstant {
     public enum STATE {
-        ENABLED(1, "enabled"),
-        DISABLED(0, "disabled"),
-        UNKNOWN(-1, "unknown");
+        ENABLED(true, "enabled"),
+        DISABLED(false, "disabled"),
+        UNKNOWN(null, "unknown");
 
-        private int code;
+        private Boolean code;
         private String label;
 
         public String getLabel() {
             return label;
         }
 
-        STATE(int code, String label) {
+        STATE(Boolean code, String label) {
             this.code = code;
             this.label = label;
         }
 
-        public static STATE which(final Integer code) {
-            return Arrays.stream(STATE.values()).filter(state -> code == null || state.code == code).findFirst().orElse(UNKNOWN);
+        public static STATE which(final Boolean code) {
+            if (code == null) return UNKNOWN;
+            return Arrays.stream(STATE.values()).filter(state -> state.code == code).findFirst().orElse(UNKNOWN);
         }
     }
 }

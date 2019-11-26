@@ -4,7 +4,9 @@
 $(function () {
     $('.delete').click(function () {
         if (confirm('Delete the item?')) {
-            var uid = $(this).data('hid');
+            console.log($(this).attr('href'))
+            $('form').attr('action', $(this).attr('href')).submit()
+            /*
             $.ajax({
                 url: '/employee/' + uid,
                 method: 'DELETE',
@@ -14,6 +16,8 @@ $(function () {
                     }
                 }
             })
+            */
         }
+        return false;
     })
 })

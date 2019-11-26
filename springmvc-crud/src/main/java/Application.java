@@ -1,6 +1,10 @@
 import com.yangzg.crud.config.RootConfig;
 import com.yangzg.crud.config.ServletConfig;
+import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
+
+import javax.servlet.Filter;
 
 /**
  * Created by Sam on 2019/11/24.
@@ -25,6 +29,13 @@ public class Application extends AbstractAnnotationConfigDispatcherServletInitia
     protected String[] getServletMappings() {
         return new String[] {
                 "/"
+        };
+    }
+
+    @Override
+    protected Filter[] getServletFilters() {
+        return new Filter[] {
+                new CharacterEncodingFilter("UTF-8"), new HiddenHttpMethodFilter()
         };
     }
 }
