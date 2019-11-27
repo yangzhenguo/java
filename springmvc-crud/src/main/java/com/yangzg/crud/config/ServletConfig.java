@@ -24,7 +24,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ResourceBundleMessageSource messageSource() {
         final ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-        messageSource.setBasename("i18n");
+        messageSource.setBasenames("i18n", "validation");
         messageSource.setFallbackToSystemLocale(false);
         messageSource.setCacheSeconds((int) TimeUnit.MINUTES.toSeconds(5));
         return messageSource;

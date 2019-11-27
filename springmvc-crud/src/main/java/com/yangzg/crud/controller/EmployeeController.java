@@ -3,10 +3,14 @@ package com.yangzg.crud.controller;
 import com.yangzg.crud.model.Employee;
 import com.yangzg.crud.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Map;
 
@@ -18,6 +22,12 @@ import java.util.Map;
 public class EmployeeController {
     @Autowired
     private EmployeeService employeeService;
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        dataBinder.setDisallowedFields("password");
+        dataBinder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));
+    }
 
     @ModelAttribute
     public void getByUid(@RequestParam(required = false) String uid, Map<String, Object> map) {
@@ -38,7 +48,11 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public String createSubmit(Employee employee) {
+    public String createSubmit(@Valid Employee employee, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            System.out.println(bindingResult);
+            return "employee/input";
+        }
         this.employeeService.save(employee);
         return "redirect:/employee/list";
     }
@@ -56,7 +70,10 @@ public class EmployeeController {
     }
 
     @PutMapping
-    public String editSubmit(Employee employee) {
+    public String editSubmit(@Valid Employee employee, BindingResult bindingResult, Map<String, Object> map) {
+        if (bindingResult.hasErrors()) {
+            return "employee/input";
+        }
         this.employeeService.save(employee);
         return "redirect:/employee/list";
     }

@@ -1,8 +1,8 @@
 <%@ page pageEncoding="UTF-8" trimDirectiveWhitespaces="true" session="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,58 +57,89 @@
     <form:form action="/employee" method="post" cssClass="form-horizontal" modelAttribute="employee">
         <legend>Create</legend>
         <form:input type="hidden" path="uid"/>
+
         <c:if test="${not empty employee.uid}">
             <input type="hidden" name="_method" value="PUT" />
         </c:if>
-        <div class="form-group">
+
+        <spring:bind path="username">
+            ${status.error}
+        <div class="form-group ${status.error ? 'has-error' : ''}">
             <label for="username" class="col-sm-2 control-label">Username</label>
             <div class="col-sm-10">
                 <form:input path="username" type="text" class="form-control" id="username" placeholder="Username"/>
+                <form:errors path="username" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
+        <spring:bind path="name">
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">Name</label>
             <div class="col-sm-10">
                 <form:input path="name" type="text" class="form-control" id="name" placeholder="name"/>
+                <form:errors path="name" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
+        <spring:bind path="email">
         <div class="form-group">
             <label for="name" class="col-sm-2 control-label">Email</label>
             <div class="col-sm-10">
                 <form:input path="email" type="text" class="form-control" id="email" placeholder="email"/>
+                <form:errors path="email" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
+
+        <spring:bind path="telephone">
         <div class="form-group">
             <label for="telephone" class="col-sm-2 control-label">Telephone</label>
             <div class="col-sm-10">
                 <form:input path="telephone" type="text" class="form-control" id="telephone" placeholder="telephone"/>
+                <form:errors path="telephone" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
+        <spring:bind path="birthday">
+        <div class="form-group">
+            <label for="birthday" class="col-sm-2 control-label">Birthday</label>
+            <div class="col-sm-10">
+                <form:input path="birthday" type="date" class="form-control" id="birthday" placeholder="birthday"/>
+                <form:errors path="birthday" cssClass="help-block"/>
+            </div>
+        </div>
+        </spring:bind>
+
+        <spring:bind path="sex">
         <div class="form-group">
             <label class="col-sm-2 control-label">Sex</label>
             <div class="col-sm-10">
-                <s:eval expression="{0: '女', 1: '男'}" var="sexes"/>
+                <spring:eval expression="{0: '女', 1: '男'}" var="sexes"/>
                 <c:forEach items="${sexes}" var="sex">
                     <label class="radio-inline">
                         <form:radiobutton path="sex" value="${sex.key}"/>${sex.value}
                     </label>
                 </c:forEach>
+                <form:errors path="sex" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
+        <spring:bind path="state">
         <div class="form-group">
             <label class="col-sm-2 control-label">State</label>
             <div class="col-sm-10">
-                <%--<form:input path="state" type="text" class="form-control" id="state" placeholder="state"/>--%>
                 <label class="checkbox-inline">
                     <form:checkbox path="state" />启用
                 </label>
+                <form:errors path="state" cssClass="help-block"/>
             </div>
         </div>
+        </spring:bind>
 
         <div class="form-group">
             <div class="col-sm-10 col-sm-offset-2">

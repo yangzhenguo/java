@@ -67,6 +67,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Telephone</th>
+                <th>Birthday</th>
                 <th>Sex</th>
                 <th>State</th>
                 <th>Operation</th>
@@ -79,6 +80,9 @@
                     <td>${emp.name}</td>
                     <td>${emp.email}</td>
                     <td>${emp.telephone}</td>
+                    <td>
+                        <fmt:formatDate pattern="yyyy-MM-dd" value="${emp.birthday}" timeZone="GMT+8"/>
+                    </td>
                     <td>
                         <s:eval var="sex" expression="T(com.yangzg.crud.constant.EmployeeConstant.SEX).which(emp.sex).label"/>
                         <fmt:message key="${sex}"/>

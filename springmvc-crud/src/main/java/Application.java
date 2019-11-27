@@ -5,6 +5,7 @@ import org.springframework.web.filter.HiddenHttpMethodFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletRegistration;
 
 /**
  * Created by Sam on 2019/11/24.
@@ -37,5 +38,10 @@ public class Application extends AbstractAnnotationConfigDispatcherServletInitia
         return new Filter[] {
                 new CharacterEncodingFilter("UTF-8"), new HiddenHttpMethodFilter()
         };
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("enableLoggingRequestDetails", "true");
     }
 }
