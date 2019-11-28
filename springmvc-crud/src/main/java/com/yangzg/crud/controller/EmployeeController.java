@@ -7,6 +7,8 @@ import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +29,18 @@ public class EmployeeController {
     public void initBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("password");
         dataBinder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));
+
+        dataBinder.addValidators(new Validator() {
+            @Override
+            public boolean supports(Class<?> clazz) {
+                return false;
+            }
+
+            @Override
+            public void validate(Object target, Errors errors) {
+
+            }
+        });
     }
 
     @ModelAttribute
