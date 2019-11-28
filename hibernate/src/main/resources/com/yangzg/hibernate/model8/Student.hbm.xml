@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yangzg.hibernate.model8">
+    <class name="Student" table="STUDENTS8">
+        <id name="id" column="ID" type="int">
+            <generator class="native"/>
+        </id>
+        <property name="name" column="NAME" type="string"/>
+        <set name="teachers" table="STUDENT8_TEACHER8">
+            <key column="STUDENT_ID"/>
+            <many-to-many column="TEACHER_ID" class="Teacher"/>
+        </set>
+    </class>
+</hibernate-mapping>

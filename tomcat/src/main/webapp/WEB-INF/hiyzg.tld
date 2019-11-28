@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>hiyzg</short-name>
+    <!--<uri>http://tags.hiyzg.com</uri>-->
+    <tag>
+        <name>hello</name>
+        <tag-class>com.yangzg.tags.HelloTag</tag-class>
+        <body-content>scriptless</body-content>
+
+        <attribute>
+            <name>times</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>int</type>
+        </attribute>
+    </tag>
+    <tag>
+        <name>max</name>
+        <tag-class>com.yangzg.tags.MaxTag</tag-class>
+        <body-content>empty</body-content>
+
+        <attribute>
+            <name>num1</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Number</type>
+        </attribute>
+
+        <attribute>
+            <name>num2</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.Number</type>
+        </attribute>
+    </tag>
+    <tag>
+        <name>readFile</name>
+        <tag-class>com.yangzg.tags.ReadFileTag</tag-class>
+        <body-content>empty</body-content>
+
+        <attribute>
+            <name>file</name>
+            <required>true</required>
+            <rtexprvalue>true</rtexprvalue>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+    <function>
+        <description>???????????</description>
+        <name>now</name>
+        <function-class>com.yangzg.functions.DateTimeFunction</function-class>
+        <function-signature>java.lang.String now(java.lang.String))</function-signature>
+    </function>
+
+
+    <!-- Invoke 'Generate' action to add tags or functions -->
+
+</taglib>

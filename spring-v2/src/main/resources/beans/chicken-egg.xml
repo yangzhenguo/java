@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="egg" class="com.yangzg.beans.Egg">
+        <constructor-arg name="chicken" ref="chicken"/>
+    </bean>
+
+    <bean id="chicken" class="com.yangzg.beans.Chicken">
+        <constructor-arg name="egg" ref="egg"/>
+    </bean>
+</beans>

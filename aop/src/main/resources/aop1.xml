@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd" profile="development">
+    <bean class="com.yangzg.service.impl.TransactionServiceImpl"/>
+    <bean id="logAspect" class="com.yangzg.aspect.LogAspect"/>
+    <!--<bean id="pointcutAspect" class="com.yangzg.aspect.PointcutAspect"/>-->
+    <aop:config>
+        <aop:pointcut id="repayPointcut" expression="com.yangzg.aspect.PointcutAspect.anyPointcut()"/>
+        <aop:aspect id="pointcut">
+            <aop:pointcut id="p1" expression="execution(* *(..))"/>
+        </aop:aspect>
+        <aop:aspect ref="logAspect">
+            <aop:before method="beforeRecord" pointcut="com.yangzg.aspect.PointcutAspect.anyPointcut()"/>
+        </aop:aspect>
+    </aop:config>
+</beans>

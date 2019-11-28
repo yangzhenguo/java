@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql:///db"/>
+        <property name="username" value="sam"/>
+        <property name="password" value="sam"/>
+    </bean>
+
+    <bean id="dataSource2" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"
+          p:driverClassName="com.mysql.jdbc.Driver"
+          p:url="jdbc:mysql:///db"
+          p:username="sam"
+          p:password="sam"/>
+
+    <bean id="dataSource3" class="org.apache.commons.dbcp.BasicDataSourceFactory" factory-method="createDataSource" destroy-method="close">
+        <constructor-arg name="properties">
+            <value>
+                driverClassName=${driverClassName}
+                url=${url}
+                username=${username}
+                password=${password}
+            </value>
+        </constructor-arg>
+    </bean>
+
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="properties">
+            <value>
+                driverClassName=com.mysql.jdbc.Driver
+                url=jdbc:mysql:///db
+                username=sam
+                password=${username}
+            </value>
+        </property>
+    </bean>
+</beans>

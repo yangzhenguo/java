@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.yangzg.hibernate.model1">
+    <class name="News" table="NEWS">
+        <id name="id" type="java.lang.Integer" column="ID">
+            <generator class="native"/>
+        </id>
+        <property name="title" column="TITLE" type="org.hibernate.type.StringType"/>
+        <property name="content" column="CONTENT" type="java.lang.String"/>
+        <property name="author" column="AUTHOR" type="java.lang.String"/>
+        <property name="date" column="DATE" type="timestamp"/>
+        <property name="newTitle">
+            <formula>
+                <![CDATA[
+                    concat(title, ':', author)+id
+                ]]>
+            </formula>
+        </property>
+    </class>
+</hibernate-mapping>

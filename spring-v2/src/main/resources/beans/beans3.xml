@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="helloWorld" class="com.yangzg.beans.HelloWorld"/>
+
+    <bean id="objects" class="com.yangzg.beans.Objects">
+        <property name="beanName">
+            <idref bean="helloWorld"/>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="interceptorNames">
+            <idref bean="helloWorld"/>
+        </property>
+    </bean>
+</beans>
