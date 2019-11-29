@@ -12,8 +12,10 @@ import org.springframework.validation.Validator;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -93,7 +95,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public String list(Map<String, Object> map) {
+    public String list(Map<String, Object> map, HttpServletResponse response) {
+        response.setLocale(Locale.ENGLISH);
         map.put("employees", this.employeeService.listAll());
         return "employee/list";
     }
