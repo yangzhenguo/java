@@ -74,6 +74,8 @@
             </tr>
             </thead>
             <tbody>
+            ${pageContext.request.locale}
+            ${pageContext.response.locale}
             <c:forEach items="${employees}" var="emp">
                 <tr>
                     <td>${emp.username}</td>

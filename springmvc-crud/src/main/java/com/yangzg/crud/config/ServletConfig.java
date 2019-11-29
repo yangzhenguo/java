@@ -44,27 +44,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
                 .addResourceLocations("/WEB-INF/classes/static/")
                 .setCacheControl(CacheControl.maxAge(1, TimeUnit.DAYS));
     }
-/*
-    @Override
-    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-        FastJsonHttpMessageConverter messageConverter = new FastJsonHttpMessageConverter();
-        messageConverter.setFastJsonConfig(new FastJsonConfig() {
-            {
-                this.setSerializerFeatures(
-                        SerializerFeature.QuoteFieldNames,
-                        SerializerFeature.WriteNullNumberAsZero
-                );
-            }
-        });
-        messageConverter.setSupportedMediaTypes(new ArrayList<MediaType>(){
-            private static final long serialVersionUID = 3018155751628619269L;
-            {
-                this.add(MediaType.APPLICATION_JSON_UTF8);
-            }
-        });
-        converters.add(messageConverter);
-    }
-*/
+
     @Override
     public void extendMessageConverters(List<HttpMessageConverter<?>> converters) {
         FastJsonHttpMessageConverter messageConverter = new FastJsonHttpMessageConverter();
@@ -76,6 +56,7 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
                 );
             }
         });
+
         messageConverter.setSupportedMediaTypes(new ArrayList<MediaType>(){
             private static final long serialVersionUID = 3018155751628619269L;
             {
