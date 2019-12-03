@@ -5,13 +5,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.util.Map;
 
 /**
  * Created by Sam on 2019/11/24.
@@ -41,5 +40,19 @@ public class IndexController {
                 this.setContentDispositionFormData("attachment", "哈哈.txt", Charset.forName("UTF-8"));
             }
         }, HttpStatus.OK);
+    }
+
+    @ResponseBody
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String ha() {
+        return "jfj";
+    }
+
+    @GetMapping("/testEx")
+    public String testEx(int i, Map<String, Object> map) {
+        System.out.println(map);
+        int b = i / i;
+        return "test";
     }
 }

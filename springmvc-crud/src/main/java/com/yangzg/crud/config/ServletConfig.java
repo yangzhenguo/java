@@ -21,7 +21,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.yangzg.crud.controller")
+@ComponentScan({
+        "com.yangzg.crud.controller",
+        "com.yangzg.crud.core"
+})
 public class ServletConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -64,6 +67,16 @@ public class ServletConfig extends WebMvcConfigurerAdapter {
             }
         });
         converters.add(0, messageConverter);
+    }
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        configurer.setUseSuffixPatternMatch(false);
+    }
+
+    @Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.favorPathExtension(false);
     }
 
     @Override
