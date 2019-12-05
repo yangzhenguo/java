@@ -3,21 +3,21 @@ package com.yangzg.jpa.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
- * Created by Sam on 2019/12/4.
+ * Created by Sam on 2019/12/5.
  */
 @Data
 @Entity
-@Table(name = "JPA_CUSTOMERS")
-public class Customer {
+@Table(name = "JPA_ORDERS")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String name;
 
-    @Temporal(TemporalType.DATE)
-    private Date birthday;
+    @ManyToOne
+    @JoinColumn
+    private Customer customer;
 }
