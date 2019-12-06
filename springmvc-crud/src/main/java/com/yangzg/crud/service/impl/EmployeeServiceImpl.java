@@ -45,6 +45,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional
+    public void save2(Employee employee1, Employee employee2) {
+        this.employeeDao.insert(employee1);
+        int a = 10 / 0;
+        this.employeeDao.insert(employee2);
+    }
+
+    @Override
+    @Transactional
     public void removeByUid(String uid) {
         this.employeeDao.deleteByUid(uid);
     }

@@ -26,4 +26,12 @@ public class EmployeeServiceImplTest {
         employees.forEach(System.out::println);
     }
 
+    @Test
+    public void save2() throws Exception {
+        final Employee employee1 = new Employee();
+        final Employee employee2 = new Employee();
+        employee1.setUid("1");
+        employee2.setUid("2");
+        this.employeeService.save2(employee1, employee2);
+    }
 }

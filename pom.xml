@@ -29,6 +29,7 @@
         <module>aop</module>
         <module>springmvc-v4</module>
         <module>springmvc-crud</module>
+        <module>spring-jpa</module>
     </modules>
 
     <properties>
