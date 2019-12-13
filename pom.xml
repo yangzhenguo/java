@@ -31,6 +31,8 @@
         <module>springmvc-crud</module>
         <module>spring-jpa</module>
         <module>spring-data</module>
+        <module>spring-data-jdbc</module>
+        <module>spring-data-jpa</module>
     </modules>
 
     <properties>
