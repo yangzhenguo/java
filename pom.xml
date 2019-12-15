@@ -33,6 +33,7 @@
         <module>spring-data</module>
         <module>spring-data-jdbc</module>
         <module>spring-data-jpa</module>
+        <module>spring-data-redis</module>
     </modules>
 
     <properties>
