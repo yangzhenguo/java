@@ -40,4 +40,8 @@ public class ListTest extends BaseTest {
 
         IntStream.generate(() -> new Random().nextInt(100)).limit(200).forEach(num -> this.listOperations.rightPush("nums", Integer.toString(num)));
     }
+
+    @Test
+    public void testMulti() throws Exception {
+    }
 }
