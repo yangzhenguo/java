@@ -1,20 +1,24 @@
 package com.yangzg.dr.config;
 
+import com.yangzg.dr.core.ActivityBootstrap;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.JedisShardInfo;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by Sam on 2019/12/14.
  */
 @Configuration
+@Import(ActivityBootstrap.class)
 //@EnableRedisRepositories
+@ComponentScan("com.yangzg.dr.service")
 @PropertySource("classpath:company.properties")
 public class RootConfig {
     @Bean
@@ -36,7 +40,13 @@ public class RootConfig {
     }
 
     @Bean
+    public ExecutorService executorService() {
+        return Executors.newFixedThreadPool(10);
+    }
+
+    @Bean
     public static PropertySourcesPlaceholderConfigurer placeholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
+
 }

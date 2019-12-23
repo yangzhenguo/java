@@ -9,6 +9,8 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 /**
@@ -23,6 +25,9 @@ public class StringTest extends BaseTest {
 
     @Value("#{ redisTemplate.opsForValue() }")
     private ValueOperations<String, String> valueOperations;
+
+    @Autowired
+    private ExecutorService executorService;
 
     @Test
     public void testSet() throws Exception {
@@ -53,5 +58,10 @@ public class StringTest extends BaseTest {
         System.out.println(connection.dbSize());
 
         connection.close();
+    }
+
+    @Test
+    public void name() throws Exception {
+        executorService.awaitTermination(20, TimeUnit.SECONDS);
     }
 }
