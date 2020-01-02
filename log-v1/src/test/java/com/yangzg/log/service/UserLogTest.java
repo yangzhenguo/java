@@ -26,4 +26,16 @@ public class UserLogTest {
         System.out.println(logger1);
 
     }
+
+    @Test
+    public void test3() throws Exception {
+        final Logger abc1 = LoggerFactory.getLogger("abc");
+        final Logger abc2 = LoggerFactory.getLogger("abc");
+        System.out.println(abc1 == abc2);
+    }
+
+    @Test
+    public void test4() throws Exception {
+        this.userLog.test1();
+    }
 }
