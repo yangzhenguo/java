@@ -8,6 +8,7 @@ import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -33,12 +34,29 @@ public class RootConfig {
         return BasicDataSourceFactory.createDataSource(properties);
     }
 
+    @Profile({ "development", "default" })
     @Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) {
-//        return new SqlSessionFactoryBuilder().build(this.mybatisConfigReader);
-        final JdbcTransactionFactory transactionFactory = new JdbcTransactionFactory();
-        final org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration(new Environment("development", transactionFactory, dataSource));
+    public Environment development(DataSource dataSource) {
+        return new Environment("development", new JdbcTransactionFactory(), dataSource);
+    }
+
+    @Profile("test")
+    @Bean
+    public Environment test(DataSource dataSource) {
+        return new Environment("test", new JdbcTransactionFactory(), dataSource);
+    }
+
+    @Profile("production")
+    @Bean
+    public Environment production(DataSource dataSource) {
+        return new Environment("production", new JdbcTransactionFactory(), dataSource);
+    }
+
+    @Bean
+    public SqlSessionFactory sqlSessionFactory(Environment environment) {
+        final org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration(environment);
         configuration.addMappers("com.yangzg.java.mybatis.mapper");
+        configuration.setMapUnderscoreToCamelCase(true);
         return new SqlSessionFactoryBuilder().build(configuration);
     }
 }

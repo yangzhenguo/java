@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yangzg.java.mybatis.mapper.UserMapper">
+    <select id="selectUser" resultType="com.yangzg.java.mybatis.model.User">
+        <!-- select sql -->
+        <![CDATA[
+          SELECT * FROM `user` WHERE id = #{id}
+        ]]>
+    </select>
+
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        <!-- insert sql -->
+        <![CDATA[
+          INSERT INTO `user`(username) VALUES(#{username})
+        ]]>
+    </insert>
+</mapper>
