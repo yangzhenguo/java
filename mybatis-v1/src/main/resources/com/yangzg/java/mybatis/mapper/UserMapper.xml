@@ -3,10 +3,65 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yangzg.java.mybatis.mapper.UserMapper">
-    <select id="selectUser" resultType="com.yangzg.java.mybatis.model.User">
+    <resultMap id="userMap" type="user">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+    </resultMap>
+
+    <resultMap id="userWithGroupMap" type="user" extends="userMap">
+        <association property="group">
+            <id property="id" column="g_id"/>
+            <result property="name" column="g_name"/>
+        </association>
+    </resultMap>
+
+    <resultMap id="userWithGroupLazyMap" type="user" extends="userMap">
+        <association property="group" select="com.yangzg.java.mybatis.mapper.GroupMapper.selectGroupById" column="g_id"/>
+    </resultMap>
+
+    <select id="selectUserById" parameterType="_int" resultMap="userMap">
         <!-- select sql -->
         <![CDATA[
-          SELECT * FROM `user` WHERE id = #{id}
+          SELECT * FROM `user` WHERE id = #{id} LIMIT 1
+        ]]>
+    </select>
+
+    <select id="selectAllUserLazy"  resultMap="userWithGroupLazyMap">
+        <!-- select sql -->
+        <![CDATA[
+          SELECT * FROM `user`
+        ]]>
+    </select>
+
+    <select id="selectMapById" parameterType="_int" resultMap="userMap">
+        <![CDATA[
+          SELECT * FROM `user` WHERE id = #{id} LIMIT 1
+        ]]>
+    </select>
+
+    <select id="selectAllListOfMap" resultMap="userMap">
+        <![CDATA[
+          SELECT * FROM `user`
+        ]]>
+    </select>
+
+    <select id="selectUserWithGroupById" resultMap="userWithGroupMap">
+        <![CDATA[
+          SELECT `user`.*, group.id as g_id, group.name as g_name
+          FROM `user`
+          LEFT JOIN `group`
+          ON `user`.g_id = `group`.id
+          WHERE `user`.id = #{id}
+          LIMIT 1
+        ]]>
+    </select>
+
+    <select id="selectAllUserWithGroup" resultMap="userWithGroupMap">
+        <![CDATA[
+          SELECT `user`.*, group.id as g_id, group.name as g_name
+          FROM `user`
+          LEFT JOIN `group`
+          ON `user`.g_id = `group`.id
         ]]>
     </select>
 

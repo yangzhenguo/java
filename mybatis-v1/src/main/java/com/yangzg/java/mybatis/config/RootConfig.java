@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
+import org.springframework.context.annotation.PropertySource;
 
 import javax.sql.DataSource;
 import java.io.InputStream;
@@ -20,6 +21,9 @@ import java.util.Properties;
  * @author Sam
  */
 @Configuration
+@PropertySource({
+        "classpath:/application.properties"
+})
 public class RootConfig {
     @Value("#{T(org.apache.ibatis.io.Resources).getResourceAsReader('mybatis-config.xml')}")
     private Reader mybatisConfigReader;
@@ -54,9 +58,12 @@ public class RootConfig {
 
     @Bean
     public SqlSessionFactory sqlSessionFactory(Environment environment) {
-        final org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration(environment);
-        configuration.addMappers("com.yangzg.java.mybatis.mapper");
-        configuration.setMapUnderscoreToCamelCase(true);
-        return new SqlSessionFactoryBuilder().build(configuration);
+        final org.apache.ibatis.session.Configuration cfg = new org.apache.ibatis.session.Configuration(environment);
+        cfg.setMapUnderscoreToCamelCase(true);
+        cfg.setLazyLoadingEnabled(true);
+        cfg.setAggressiveLazyLoading(false);
+        cfg.getTypeAliasRegistry().registerAliases("com.yangzg.java.mybatis.model");
+        cfg.addMappers("com.yangzg.java.mybatis.mapper");
+        return new SqlSessionFactoryBuilder().build(cfg);
     }
 }
