@@ -1,6 +1,6 @@
 package com.yangzg.chapter12;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.apache.commons.dbcp.BasicDataSourceFactory;
 import org.apache.commons.dbutils.BasicRowProcessor;
 import org.apache.commons.dbutils.BeanProcessor;
 import org.apache.commons.dbutils.QueryRunner;
@@ -10,6 +10,7 @@ import org.apache.commons.dbutils.handlers.ColumnListHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
@@ -20,19 +21,19 @@ import java.util.*;
 public class DbUtilTest {
     public static final Logger LOGGER = LoggerFactory.getLogger(DbUtilTest.class);
 
-    private static MysqlDataSource dataSource = new MysqlDataSource();
-    private static QueryRunner queryRunner = new QueryRunner(dataSource);
+    private static QueryRunner queryRunner;
 
     static {
         try {
             Properties properties = new Properties();
             properties.load(DbUtilTest.class.getClassLoader().getResourceAsStream("jdbc.properties"));
-            dataSource.setUser(properties.getProperty("user"));
-            dataSource.setPassword(properties.getProperty("password"));
-            dataSource.setURL(properties.getProperty("url"));
+            DataSource dataSource = BasicDataSourceFactory.createDataSource(properties);
+            queryRunner = new QueryRunner(dataSource);
         } catch (IOException e) {
             LOGGER.error(e.toString());
             e.printStackTrace();
+            throw new RuntimeException(e);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
