@@ -22,7 +22,18 @@
     <select id="selectUserById" parameterType="_int" resultMap="userMap">
         <!-- select sql -->
         <![CDATA[
-          SELECT * FROM `user` WHERE id = #{id} LIMIT 1
+          SELECT * FROM `user`
+        ]]>
+        <where>
+            <if test="id">
+                id = #{id}
+            </if>
+            <if test="@java.lang.Math@random() &gt; 1">
+                and 1 = 1
+            </if>
+        </where>
+        <![CDATA[
+          LIMIT 1
         ]]>
     </select>
 
@@ -35,8 +46,14 @@
 
     <select id="selectMapById" parameterType="_int" resultMap="userMap">
         <![CDATA[
-          SELECT * FROM `user` WHERE id = #{id} LIMIT 1
+          SELECT * FROM `user`
         ]]>
+        <where>
+            <if test="id">
+                id = #{id}
+            </if>
+        </where>
+        LIMIT 1
     </select>
 
     <select id="selectAllListOfMap" resultMap="userMap">
@@ -47,18 +64,30 @@
 
     <select id="selectUserWithGroupById" resultMap="userWithGroupMap">
         <![CDATA[
-          SELECT `user`.*, group.id as g_id, group.name as g_name
+          SELECT
+            `user`.*,
+            `group`.id as g_id,
+            `group`.name as g_name
           FROM `user`
           LEFT JOIN `group`
           ON `user`.g_id = `group`.id
-          WHERE `user`.id = #{id}
+        ]]>
+        <where>
+            <if test="id">
+                `user`.id = #{id}
+            </if>
+        </where>
+        <![CDATA[
           LIMIT 1
         ]]>
     </select>
 
     <select id="selectAllUserWithGroup" resultMap="userWithGroupMap">
         <![CDATA[
-          SELECT `user`.*, group.id as g_id, group.name as g_name
+          SELECT
+            `user`.*,
+            `group`.id as g_id,
+            `group`.name as g_name
           FROM `user`
           LEFT JOIN `group`
           ON `user`.g_id = `group`.id

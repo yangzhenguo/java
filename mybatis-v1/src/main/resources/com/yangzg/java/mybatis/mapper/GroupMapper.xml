@@ -11,7 +11,15 @@
     <select id="selectGroupById" parameterType="_int" resultMap="groupMap">
         <!-- select sql -->
         <![CDATA[
-          SELECT * FROM `group` WHERE id = #{id} LIMIT 1
+          SELECT * FROM `group`
+        ]]>
+        <where>
+            <if test="id">
+                id = #{id}
+            </if>
+        </where>
+        <![CDATA[
+          LIMIT 1
         ]]>
     </select>
 </mapper>
