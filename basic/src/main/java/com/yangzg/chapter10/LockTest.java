@@ -1,8 +1,5 @@
 package com.yangzg.chapter10;
 
-import com.sun.tools.jdi.InternalEventHandler;
-
-import javax.sound.midi.Soundbank;
 import java.util.concurrent.*;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -23,9 +20,11 @@ public class LockTest {
             @Override
             public Integer call() throws Exception {
                 while (true) {
+                    lock.lock();
                     try {
-                        lock.lock();
-                        if (this.count <= 0) break;
+                        if (this.count <= 0) {
+                            break;
+                        }
                         System.out.println(String.format("Thread: %s, count: %s", Thread.currentThread(), this.count));
                         this.count--;
                     } finally {
@@ -55,13 +54,17 @@ public class LockTest {
             @Override
             public Integer call() throws Exception {
                 while (true) {
-                    if (this.consume() <= 0) break;
+                    if (this.consume() <= 0) {
+                        break;
+                    }
                 }
                 return this.count;
             }
 
             public synchronized int consume() throws InterruptedException {
-                if (this.count <= 0) return this.count;
+                if (this.count <= 0) {
+                    return this.count;
+                }
                 Thread.sleep(20);
                 System.out.println(String.format("Thread: %s, ticket %s.", Thread.currentThread(), this.count));
                 return this.count--;

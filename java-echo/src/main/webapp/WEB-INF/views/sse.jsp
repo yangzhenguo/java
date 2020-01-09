@@ -73,7 +73,7 @@
 <script src="https://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script>
-    var echo_websocket, output;
+    var source, output;
 
     function init() {
         output = document.querySelector('#output');
@@ -81,22 +81,22 @@
     }
 
     function send_echo() {
-        var wsUri = 'ws://'+ location.host +'/echo/${empty param.uid ? 123 : param.uid}';
+        var wsUri = '/sse/message';
+        source = new EventSource(wsUri);
         writeToScreen('Connecting to ' + wsUri);
-        echo_websocket = new WebSocket(wsUri);
-        echo_websocket.onopen = function (evt) {
+        source.onopen = function (evt) {
             writeToScreen('Connected!');
-            doSend(textID.value)
+            // doSend(textID.value)
         }
-        echo_websocket.onmessage = function (evt) {
+        source.onmessage = function (evt) {
             writeToScreen('Received message: ' + evt.data);
-            //echo_websocket.close();
+            //source.close();
         }
-        echo_websocket.onerror = function (evt) {
+        source.onerror = function (evt) {
             writeToScreen('<span style="color: red;">Error: </span>' + evt.data);
-            echo_websocket.close();
+            source.close();
         }
-        echo_websocket.onclose = function () {
+        source.onclose = function () {
             writeToScreen('<span style="color: blue;">Closed!</span>');
         }
     }
