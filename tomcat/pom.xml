@@ -49,7 +49,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
         </dependency>
         <dependency>
             <groupId>com.yangzg</groupId>
@@ -71,11 +70,6 @@
             <groupId>commons-dbutils</groupId>
             <artifactId>commons-dbutils</artifactId>
             <version>1.6</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.6</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

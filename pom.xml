@@ -134,4 +134,15 @@
             </plugins>
         </pluginManagement>
     </build>
+
+    <repositories>
+        <repository>
+            <id>sonatype</id>
+            <name>Sonatype Repository</name>
+            <url>https://repository.sonatype.org/content/groups/forge/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 </project>
