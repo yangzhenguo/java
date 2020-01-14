@@ -37,6 +37,8 @@
         <module>log-v1</module>
         <module>mybatis-v1</module>
         <module>java-echo</module>
+        <module>spring-annotation-v1</module>
+        <module>spring-boot-v1</module>
     </modules>
 
     <properties>

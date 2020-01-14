@@ -5,6 +5,7 @@ import com.yangzg.java.spring.model.Person;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 /**
@@ -15,6 +16,11 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @ComponentScan({
         "com.yangzg.java.spring.service",
         "com.yangzg.java.spring.dao"
+})
+@Import({
+        DevRootConfig.class,
+        TestRootConfig.class,
+        ProdRootConfig.class
 })
 public class RootConfig {
     @Bean(initMethod = "init")

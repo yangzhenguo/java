@@ -1,0 +1,17 @@
+package com.yangzg.java.spring.config;
+
+import com.yangzg.java.spring.model.Person;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Profile;
+
+/**
+ * Created by Sam on 2020/1/14.
+ * @author Sam
+ */
+@Profile("test")
+public class TestRootConfig {
+    @Bean
+    public Person person() {
+        return new Person();
+    }
+}

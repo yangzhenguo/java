@@ -9,6 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * Created by Sam on 2020/1/13.
  */
@@ -28,6 +31,9 @@ public class PersonServiceTest {
     @Autowired
     private PersonService personService;
 
+    @Autowired
+    private List<Object> list;
+
     @Test
     public void getOnePerson() throws Exception {
         this.personService.getOnePerson().ifPresent(System.out::println);
@@ -38,5 +44,6 @@ public class PersonServiceTest {
     public void testOs() throws Exception {
         System.out.println(oss);
         System.out.println(this.home);
+        System.out.println(String.join("\n", this.list.stream().map(Object::toString).collect(Collectors.toList())));
     }
 }
