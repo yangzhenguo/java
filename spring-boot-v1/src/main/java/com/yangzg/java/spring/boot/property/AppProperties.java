@@ -3,9 +3,7 @@ package com.yangzg.java.spring.boot.property;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Size;
 import java.util.List;
 
 /**
@@ -14,10 +12,8 @@ import java.util.List;
  */
 @Data
 @Component
-@Validated
 @ConfigurationProperties("haha.app")
 public class AppProperties {
-    @Size(min = 1, max = 20)
     private String welcome;
     private Person person;
 

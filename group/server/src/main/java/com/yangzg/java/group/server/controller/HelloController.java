@@ -1,6 +1,8 @@
 package com.yangzg.java.group.server.controller;
 
+import com.yangzg.java.group.server.model.Person;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -9,8 +11,15 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class HelloController {
-    @GetMapping("")
-    public String hello() {
+    @ModelAttribute
+    public Person modelAttribute() {
+        System.out.println("modelAttribute...");
+        return new Person();
+    }
+
+    @GetMapping(value = "")
+    public String hello(Person person) {
+        System.out.println(person);
         return "hello";
     }
 }
