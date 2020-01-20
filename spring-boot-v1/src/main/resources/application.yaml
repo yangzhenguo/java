@@ -1,9 +1,14 @@
 server:
   port: 80
-  context-path: /
+  servlet:
+    context-path: /
 spring:
   resources:
-    cache-period: 0
+    cache:
+      cachecontrol:
+        max-age: 30
+  thymeleaf:
+    mode: HTML5
 haha:
   app:
     welcome: "Welcome to my system"
@@ -11,4 +16,9 @@ haha:
       names:
         - "yangzg"
         - 'yzg'
-      address: Beijing, Chaoyang
+      address: Beijing, Chaoyang, ${user.dir}
+logging:
+  level:
+    com.yangzg: debug
+  file:
+    path: ${user.dir}/logs
