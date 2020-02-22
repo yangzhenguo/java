@@ -107,4 +107,9 @@ public class FirstThreadTest {
         thread.start();
         System.out.println(thread.isDaemon());
     }
+
+    @Test
+    public void test9() throws Exception {
+
+    }
 }
