@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd">
+    <bean id="person" class="com.yangzg.lesson1.Person">
+        <property name="car">
+            <bean class="com.yangzg.lesson1.Car"/>
+        </property>
+        <property name="car.name">
+            <value><![CDATA[A->B->C]]></value>
+        </property>
+        <constructor-arg name="name">
+            <idref bean="person"/>
+        </constructor-arg>
+        <constructor-arg name="age" value="12"/>
+    </bean>
+
+    <util:properties id="aa">
+        <prop key="a">fff</prop>
+        <prop key="b"><![CDATA[fffsfas]]></prop>
+    </util:properties>
+
+    <util:map id="map">
+        <entry key="2" value="fff"/>
+    </util:map>
+</beans>

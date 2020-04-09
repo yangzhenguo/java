@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="name" class="java.lang.String">
+        <constructor-arg value="123"></constructor-arg>
+    </bean>
+
+    <bean id="person" class="com.yangzg.lesson1.Person">
+        <property name="name">
+            <value><![CDATA[<h1>Haha</h1>]]></value>
+        </property>
+        <property name="age">
+            <value>
+                <![CDATA[123]]>
+            </value>
+        </property>
+        <property name="car">
+            <bean class="com.yangzg.lesson1.Car">
+                <property name="name" value="123"/>
+            </bean>
+        </property>
+    </bean>
+</beans>

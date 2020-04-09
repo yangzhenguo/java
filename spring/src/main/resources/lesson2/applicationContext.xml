@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="test12" class="java.lang.String">
+        <constructor-arg value="#{systemEnvironment.NVM_BIN}"/>
+    </bean>
+
+    <bean id="audi" class="com.yangzg.lesson2.Car" c:brand="Audi" c:type="C"/>
+
+    <bean id="abstractPerson" abstract="true">
+        <property name="name" value="test"/>
+        <property name="age">
+            <value>#{123}</value>
+        </property>
+    </bean>
+
+    <bean id="person1" parent="abstractPerson" p:name-ref="test12" p:age="12333" p:car-ref="audi" depends-on="test12,audi" class="com.yangzg.lesson2.Person"/>
+</beans>

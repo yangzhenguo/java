@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="calculator7" class="com.yangzg.lesson5.CalculatorImpl">
+        <property name="abc" value="file:///Users/Sam/Downloads/ol.html"/>
+    </bean>
+
+    <bean class="com.yangzg.lesson5.CalculatorImpl.ABC"/>
+    <bean class="com.yangzg.lesson5.CalculatorImpl$ABC"/>
+
+    <import resource="classpath:/lesson2/applicationContext1.xml"/>
+
+    <bean id="calculator" name="calculator2 calculator3,calculator4;calculator5" class="com.yangzg.lesson5.CalculatorFactoryBean" p:label-ref="el2"/>
+
+    <bean id="timeZone" class="java.util.TimeZone" factory-method="getTimeZone">
+        <constructor-arg name="ID" value="#{systemProperties['user.timezone']}"/>
+    </bean>
+
+    <bean id="calendar" class="java.util.Calendar" factory-method="getInstance">
+        <constructor-arg name="zone" ref="timeZone"/>
+    </bean>
+
+    <alias name="calculator5" alias="calculator6"/>
+
+    <bean id="loggingAspect" class="com.yangzg.lesson5.aspect.LoggingAspect"/>
+
+    <bean id="validationAspect" class="com.yangzg.lesson5.aspect.ValidationAspect"/>
+
+    <bean class="com.yangzg.lesson5.CalculatorImpl"/>
+
+    <context:component-scan base-package="com.yangzg.lesson5"/>
+
+    <aop:config>
+        <aop:pointcut id="default" expression="com.yangzg.lesson5.aspect.LoggingAspect.defaultPointCut()"/>
+
+        <aop:aspect ref="loggingAspect" order="2">
+            <aop:before method="before" pointcut-ref="default"/>
+        </aop:aspect>
+
+        <aop:aspect ref="validationAspect" order="1">
+            <aop:before method="before" pointcut-ref="default"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
